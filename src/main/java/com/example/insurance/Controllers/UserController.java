@@ -1,46 +1,48 @@
 package com.example.insurance.Controllers;
 
-import com.example.insurance.Entities.User;
+import com.example.insurance.Entities.UserEntity;
 import com.example.insurance.Services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/clients")
 public class UserController {
 
-    private UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PostMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody User user) {
-        userService.addNewUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registration(@RequestBody UserEntity userEntity) {
+        userService.addNewUser(userEntity);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        User user = userService.getUser(id);
-        return user != null ? new ResponseEntity<>(user, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @ResponseStatus(HttpStatus.OK)
+    public UserEntity getUser(@PathVariable Long id) {
+        return userService.getUser(id);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserEntity> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<User> editUser(@PathVariable Long id,
-                                         @RequestBody User user) {
-        User userFromDB = userService.editUser(id, user);
-        return userFromDB != null ? new ResponseEntity<>(userFromDB, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserEntity editUser(@PathVariable Long id,
+                               @RequestBody UserEntity userEntity) {
+        return userService.editUser(id, userEntity);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable Long id) {
+
     }
 }

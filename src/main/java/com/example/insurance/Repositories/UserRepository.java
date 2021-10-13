@@ -1,15 +1,15 @@
 package com.example.insurance.Repositories;
 
-import com.example.insurance.Entities.User;
+import com.example.insurance.Entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    User findUserById(Long id);
+    UserEntity findUserById(Long id);
 
-    User findByTelephoneNumber(String telephoneNumber);
+    UserEntity findByTelephoneNumber(String telephoneNumber);
+
+    UserEntity findByEmail(String email);
 }
