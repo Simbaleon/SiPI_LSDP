@@ -1,6 +1,6 @@
-package com.example.insurance.Repositories;
+package com.example.insurance.Data.Repositories;
 
-import com.example.insurance.Entities.UserEntity;
+import com.example.insurance.Data.Entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

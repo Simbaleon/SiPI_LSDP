@@ -1,4 +1,4 @@
-package com.example.insurance.Entities;
+package com.example.insurance.Data.Entities;
 
 
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.example.insurance.Controllers;
 
-import com.example.insurance.Entities.UserEntity;
+import com.example.insurance.Data.Entities.UserEntity;
 import com.example.insurance.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

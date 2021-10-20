@@ -1,7 +1,7 @@
 package com.example.insurance.Security;
 
-import com.example.insurance.Entities.UserEntity;
-import com.example.insurance.Repositories.UserRepository;
+import com.example.insurance.Data.Entities.UserEntity;
+import com.example.insurance.Data.Repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (userEntity == null)
             throw new UsernameNotFoundException("Неверные эл.почта или пароль");
         else
-            return new User(userEntity.getEmail(), userEntity.getPassword(), );
+            return new User(userEntity.getEmail(), userEntity.getPassword(), userEntity.getRoles());
     }
 }
