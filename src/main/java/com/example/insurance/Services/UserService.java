@@ -1,5 +1,6 @@
 package com.example.insurance.Services;
 
+import com.example.insurance.Data.Entities.Role;
 import com.example.insurance.Data.Entities.UserEntity;
 import com.example.insurance.Exceptions.UserNotFoundException;
 import com.example.insurance.Data.Repositories.UserRepository;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,6 +21,7 @@ public class UserService {
 
     public void addNewUser(UserEntity userEntity) {
         userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
+        userEntity.setRoles(Collections.singleton(Role.User));
         userRepository.save(userEntity);
     }
 

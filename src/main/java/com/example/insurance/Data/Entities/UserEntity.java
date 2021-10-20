@@ -25,6 +25,6 @@ public class UserEntity extends BaseEntity {
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 }
