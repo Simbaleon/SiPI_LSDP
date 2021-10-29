@@ -29,8 +29,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/clients/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .logout()
-                .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
