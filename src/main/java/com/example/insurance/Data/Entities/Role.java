@@ -3,7 +3,7 @@ package com.example.insurance.Data.Entities;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    User, Admin;
+    USER, ADMIN;
 
 
     @Override

@@ -19,13 +19,13 @@ public class UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserEntity findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public UserEntity findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public void addNewUser(UserEntity userEntity) {
         userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
-        userEntity.setRoles(Collections.singleton(Role.User));
+        userEntity.setRoles(Collections.singleton(Role.USER));
         userRepository.save(userEntity);
     }
 
