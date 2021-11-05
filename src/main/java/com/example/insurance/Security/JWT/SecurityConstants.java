@@ -1,4 +1,4 @@
-package com.example.insurance.Security;
+package com.example.insurance.Security.JWT;
 
 public class SecurityConstants {
     public static final String SECRET = "My_Secret_Key";

@@ -2,6 +2,8 @@ package com.example.insurance.Security;
 
 import com.example.insurance.Security.Filters.JWTAuthenticationFilter;
 import com.example.insurance.Security.Filters.JWTAuthorizationFilter;
+import com.example.insurance.Security.JWT.JWTTokenProvider;
+import com.example.insurance.Security.JWT.RefreshTokenProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

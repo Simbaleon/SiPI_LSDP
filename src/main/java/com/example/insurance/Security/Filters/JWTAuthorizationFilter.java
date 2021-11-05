@@ -1,13 +1,9 @@
 package com.example.insurance.Security.Filters;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.example.insurance.Data.Entities.Role;
-import com.example.insurance.Security.JWTTokenProvider;
-import com.example.insurance.Security.RefreshTokenProvider;
-import lombok.AllArgsConstructor;
+import com.example.insurance.Security.JWT.JWTTokenProvider;
+import com.example.insurance.Security.JWT.RefreshTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.insurance.Security.SecurityConstants.*;
+import static com.example.insurance.Security.JWT.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -74,7 +70,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 return null;
             }
             catch (TokenExpiredException e) {
-                refreshTokenProvider.updateTokens(request, response);
+                String newAccessToken = refreshTokenProvider.updateTokens(request, response);
+                if (newAccessToken != null) {
+                    String usernameFromNewToken = jwtTokenProvider.getUsernameFromToken(newAccessToken);
+                    String roleFromNewToken = jwtTokenProvider.getRoleFromToken(newAccessToken);
+                    List<GrantedAuthority> rolesFromNewToken = new ArrayList<>();
+                    rolesFromNewToken.add(new SimpleGrantedAuthority(roleFromNewToken));
+                    if (usernameFromNewToken != null)
+                        return new UsernamePasswordAuthenticationToken(usernameFromNewToken, null, rolesFromNewToken);
+                }
             }
         }
         return null;

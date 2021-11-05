@@ -2,8 +2,8 @@ package com.example.insurance.Security.Filters;
 
 import com.example.insurance.Data.Entities.UserEntity;
 import com.example.insurance.Exceptions.AuthenticationFailedException;
-import com.example.insurance.Security.JWTTokenProvider;
-import com.example.insurance.Security.RefreshTokenProvider;
+import com.example.insurance.Security.JWT.JWTTokenProvider;
+import com.example.insurance.Security.JWT.RefreshTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 
-import static com.example.insurance.Security.SecurityConstants.*;
+import static com.example.insurance.Security.JWT.SecurityConstants.*;
 
 @AllArgsConstructor
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

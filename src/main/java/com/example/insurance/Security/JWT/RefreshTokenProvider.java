@@ -1,21 +1,13 @@
-package com.example.insurance.Security;
+package com.example.insurance.Security.JWT;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.insurance.Data.Entities.RefreshToken;
 import com.example.insurance.Data.Entities.UserEntity;
 import com.example.insurance.Data.Repositories.RefreshTokenRepository;
 import com.example.insurance.Data.Repositories.UserRepository;
-import com.example.insurance.Services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -27,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.example.insurance.Security.SecurityConstants.*;
+import static com.example.insurance.Security.JWT.SecurityConstants.*;
 
 @Component
 @AllArgsConstructor
@@ -62,7 +54,7 @@ public class RefreshTokenProvider {
     }
 
     @Transactional
-    public void updateTokens(HttpServletRequest request, HttpServletResponse response) {
+    public String updateTokens(HttpServletRequest request, HttpServletResponse response) {
         String oldAccessToken = request.getHeader(HEADER_ACCESS_TOKEN);
         String oldRefreshToken = request.getHeader(HEADER_REFRESH_TOKEN);
         if (oldAccessToken != null && oldRefreshToken != null) {
@@ -84,6 +76,8 @@ public class RefreshTokenProvider {
             String token = jwtTokenProvider.createJWTToken(userEntity.getEmail(), authorities);
             response.addHeader(HEADER_ACCESS_TOKEN, TOKEN_PREFIX + token);
             response.addHeader(HEADER_REFRESH_TOKEN, refreshToken.getToken());
+            return token;
         }
+        return null;
     }
 }

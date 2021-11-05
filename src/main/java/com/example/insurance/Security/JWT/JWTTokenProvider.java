@@ -1,4 +1,4 @@
-package com.example.insurance.Security;
+package com.example.insurance.Security.JWT;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-import static com.example.insurance.Security.SecurityConstants.*;
+import static com.example.insurance.Security.JWT.SecurityConstants.*;
 
 @Component
 public class JWTTokenProvider {
