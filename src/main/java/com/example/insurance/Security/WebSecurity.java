@@ -21,6 +21,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     public BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private JWTTokenProvider jwtTokenProvider;
+
+    private RefreshTokenProvider refreshTokenProvider;
+
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -29,8 +33,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/clients/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtTokenProvider, refreshTokenProvider))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtTokenProvider, refreshTokenProvider))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         ;
     }

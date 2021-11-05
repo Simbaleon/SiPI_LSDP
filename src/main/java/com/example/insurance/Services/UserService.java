@@ -19,8 +19,8 @@ public class UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserEntity findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public UserEntity findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public void addNewUser(UserEntity userEntity) {
@@ -44,9 +44,8 @@ public class UserService {
     public UserEntity editUser(Long id, UserEntity userEntity) {
         UserEntity userEntityFromDB = userRepository.findUserById(id);
         if (userEntityFromDB != null) {
-            userEntityFromDB.setUsername(userEntity.getUsername());
-            userEntityFromDB.setFullName(userEntity.getFullName());
             userEntityFromDB.setEmail(userEntity.getEmail());
+            userEntityFromDB.setFullName(userEntity.getFullName());
             userEntityFromDB.setTelephoneNumber(userEntity.getTelephoneNumber());
             userRepository.save(userEntityFromDB);
             return userEntityFromDB;

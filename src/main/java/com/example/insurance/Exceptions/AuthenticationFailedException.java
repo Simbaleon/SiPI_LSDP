@@ -6,6 +6,6 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthenticationFailedException extends ResponseStatusException {
 
     public AuthenticationFailedException() {
-        super(HttpStatus.UNAUTHORIZED, "Введены неверные логин/пароль");
+        super(HttpStatus.UNAUTHORIZED, "Invalid email/password");
     }
 }

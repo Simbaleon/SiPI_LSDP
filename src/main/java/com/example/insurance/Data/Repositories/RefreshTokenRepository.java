@@ -8,9 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
 
-    UserEntity findUserById(Long id);
+    RefreshToken findByToken(String token);
 
-    UserEntity findByEmail(String email);
+    void deleteAllByUser(UserEntity userEntity);
+
+    List<RefreshToken> findByUser(UserEntity userEntity);
 }
