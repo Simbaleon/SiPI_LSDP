@@ -21,6 +21,9 @@ import java.util.stream.Collectors;
 
 import static com.example.insurance.Security.JWT.SecurityConstants.*;
 
+/**
+ * The type Refresh token provider.
+ */
 @Component
 @AllArgsConstructor
 public class RefreshTokenProvider {
@@ -31,6 +34,12 @@ public class RefreshTokenProvider {
 
     private JWTTokenProvider jwtTokenProvider;
 
+    /**
+     * Create refresh token.
+     *
+     * @param email the email
+     * @return the refresh token
+     */
     public RefreshToken createRefreshToken(String email) {
         UserEntity userEntity = userRepository.findByEmail(email);
         RefreshToken refreshToken = new RefreshToken();
@@ -41,6 +50,12 @@ public class RefreshTokenProvider {
         return refreshToken;
     }
 
+    /**
+     * Verify token expiration date refresh token.
+     *
+     * @param refreshToken the refresh token
+     * @return the refresh token
+     */
     public RefreshToken verifyTokenExpirationDate(RefreshToken refreshToken) {
         Date now = new Date();
         if (now.after(refreshToken.getExpirationDate())) {
@@ -53,6 +68,13 @@ public class RefreshTokenProvider {
         return refreshToken;
     }
 
+    /**
+     * Update tokens string.
+     *
+     * @param request  the request
+     * @param response the response
+     * @return the string
+     */
     @Transactional
     public String updateTokens(HttpServletRequest request, HttpServletResponse response) {
         String oldAccessToken = request.getHeader(HEADER_ACCESS_TOKEN);

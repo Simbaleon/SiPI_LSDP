@@ -6,6 +6,9 @@ import lombok.Data;
 
 import java.util.Set;
 
+/**
+ * The type User dto.
+ */
 @Data
 @AllArgsConstructor
 public class UserDTO {

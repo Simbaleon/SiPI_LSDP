@@ -12,9 +12,19 @@ import java.util.*;
 
 import static com.example.insurance.Security.JWT.SecurityConstants.*;
 
+/**
+ * The type Jwt token provider.
+ */
 @Component
 public class JWTTokenProvider {
 
+    /**
+     * Create jwt token string.
+     *
+     * @param username    the username
+     * @param authorities the authorities
+     * @return the string
+     */
     public String createJWTToken(String username, Collection<GrantedAuthority> authorities) {
         String userRole;
         if (authorities.contains(Role.ADMIN))
@@ -30,6 +40,12 @@ public class JWTTokenProvider {
         return token;
     }
 
+    /**
+     * Gets username from token.
+     *
+     * @param token the token
+     * @return the username from token
+     */
     public String getUsernameFromToken(String token) {
         return JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                 .build()
@@ -37,6 +53,12 @@ public class JWTTokenProvider {
                 .getSubject();
     }
 
+    /**
+     * Gets role from token.
+     *
+     * @param token the token
+     * @return the role from token
+     */
     public String getRoleFromToken(String token) {
         return JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                 .build()
@@ -44,6 +66,12 @@ public class JWTTokenProvider {
                 .getClaim("role").asString();
     }
 
+    /**
+     * Decode jwt string.
+     *
+     * @param jwt the jwt
+     * @return the string
+     */
     public String decodeJWT(String jwt){
         Map<String, String> userData = new HashMap<>();
         String[] chunks = jwt.split("\\.");

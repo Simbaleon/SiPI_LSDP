@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The type User entity.
+ */
 @Entity
 @Table(name = "users")
 @Data

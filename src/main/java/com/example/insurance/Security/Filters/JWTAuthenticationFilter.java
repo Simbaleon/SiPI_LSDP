@@ -23,6 +23,9 @@ import java.util.Collection;
 
 import static com.example.insurance.Security.JWT.SecurityConstants.*;
 
+/**
+ * The type Jwt authentication filter.
+ */
 @AllArgsConstructor
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 

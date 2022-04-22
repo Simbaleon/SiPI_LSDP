@@ -22,6 +22,9 @@ import java.util.List;
 
 import static com.example.insurance.Security.JWT.SecurityConstants.*;
 
+/**
+ * The type Jwt authorization filter.
+ */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
@@ -30,6 +33,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private RefreshTokenProvider refreshTokenProvider;
 
+    /**
+     * Instantiates a new Jwt authorization filter.
+     *
+     * @param authenticationManager the authentication manager
+     * @param jwtTokenProvider      the jwt token provider
+     * @param refreshTokenProvider  the refresh token provider
+     */
     @Autowired
     public JWTAuthorizationFilter(AuthenticationManager authenticationManager,
                                   JWTTokenProvider jwtTokenProvider,

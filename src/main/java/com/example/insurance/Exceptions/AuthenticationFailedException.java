@@ -3,8 +3,14 @@ package com.example.insurance.Exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * The type Authentication failed exception.
+ */
 public class AuthenticationFailedException extends ResponseStatusException {
 
+    /**
+     * Instantiates a new Authentication failed exception.
+     */
     public AuthenticationFailedException() {
         super(HttpStatus.UNAUTHORIZED, "Invalid email/password");
     }

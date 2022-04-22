@@ -14,6 +14,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * The type Web security.
+ */
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
@@ -21,6 +24,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
+    /**
+     * The Bcrypt password encoder.
+     */
     public BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private JWTTokenProvider jwtTokenProvider;

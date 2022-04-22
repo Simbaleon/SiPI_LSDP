@@ -2,8 +2,18 @@ package com.example.insurance.Data.Entities;
 
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * The enum Role.
+ */
 public enum Role implements GrantedAuthority {
-    USER, ADMIN;
+    /**
+     * User role.
+     */
+    USER,
+    /**
+     * Admin role.
+     */
+    ADMIN;
 
 
     @Override

@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * The type Refresh token.
+ */
 @Entity
 @Table(name = "refresh_tokens")
 @Data
