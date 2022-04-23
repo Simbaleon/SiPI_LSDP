@@ -1,6 +1,6 @@
-# Insurance-Company
+# LSD'P Freelance Platform
 ## Описание
-Backend веб-приложение страховой компании
+Веб-приложение фриланс-платформы
 
 ## Maven зависимости приложения
 - Spring Web
