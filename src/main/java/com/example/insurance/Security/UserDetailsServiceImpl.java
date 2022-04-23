@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity registeredUser = userService.findUserByEmail(email);
         if (registeredUser == null)
-            throw new UsernameNotFoundException("There is no user with such username");
+            throw new UsernameNotFoundException("Пользователь с таким адресом эл.почты не зарегистрирован");
         return new User(registeredUser.getEmail(), registeredUser.getPassword(), registeredUser.getRoles());
     }
 }

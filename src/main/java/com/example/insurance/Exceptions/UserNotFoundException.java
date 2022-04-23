@@ -12,6 +12,6 @@ public class UserNotFoundException extends ResponseStatusException {
      * Instantiates a new User not found exception.
      */
     public UserNotFoundException() {
-        super(HttpStatus.NOT_FOUND, "There is no user with such id");
+        super(HttpStatus.NOT_FOUND, "Пользователя с таким id нет");
     }
 }

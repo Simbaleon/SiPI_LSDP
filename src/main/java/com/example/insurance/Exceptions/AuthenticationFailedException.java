@@ -12,6 +12,6 @@ public class AuthenticationFailedException extends ResponseStatusException {
      * Instantiates a new Authentication failed exception.
      */
     public AuthenticationFailedException() {
-        super(HttpStatus.UNAUTHORIZED, "Invalid email/password");
+        super(HttpStatus.UNAUTHORIZED, "Неверный адрес эл.почты или пароль");
     }
 }
