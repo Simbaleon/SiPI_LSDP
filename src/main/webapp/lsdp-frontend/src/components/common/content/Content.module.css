@@ -1,0 +1,9 @@
+.content {
+    flex: 1;
+}
+
+img {
+    display: block;
+    margin: auto;
+    width: 40%;
+}

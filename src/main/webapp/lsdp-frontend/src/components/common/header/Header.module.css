@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Suez+One&display=swap');
+
+.header {
+    width: 100%;
+    background: #1c1427;
+    height: 50px;
+}
+
+.logo {
+    color: white;
+    font-family: 'Suez One', serif;
+    font-size: 35px;
+    float: left;
+    margin-left: 10px;
+}
+
+.menu {
+    text-align: center;
+    font-size: 15px;
+}
+.menu a {
+    color: white;
+    text-decoration: none;
+    padding: 4px 30px;
+    line-height: 50px;
+}
