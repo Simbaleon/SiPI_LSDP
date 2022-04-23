@@ -2,6 +2,7 @@ package com.example.insurance.Services;
 
 import com.example.insurance.Data.Entities.Role;
 import com.example.insurance.Data.Entities.UserEntity;
+import com.example.insurance.Data.InputModels.UserRegistrationInput;
 import com.example.insurance.Exceptions.UserNotFoundException;
 import com.example.insurance.Data.Repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -32,15 +33,22 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+
     /**
      * Add new user.
      *
-     * @param userEntity the user entity
+     * @param userRegistrationInput the user registration input
      */
-    public void addNewUser(UserEntity userEntity) {
-        userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
-        userEntity.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(userEntity);
+    public void addNewUser(UserRegistrationInput userRegistrationInput) {
+        UserEntity user = UserEntity.builder()
+                .fullName(userRegistrationInput.getFullName())
+                .email(userRegistrationInput.getEmail())
+                .telephoneNumber(userRegistrationInput.getTelephoneNumber())
+                .password(userRegistrationInput.getPassword())
+                .build();
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(Collections.singleton(Role.USER));
+        userRepository.save(user);
     }
 
     /**
@@ -81,8 +89,7 @@ public class UserService {
             userEntityFromDB.setTelephoneNumber(userEntity.getTelephoneNumber());
             userRepository.save(userEntityFromDB);
             return userEntityFromDB;
-        }
-        else
+        } else
             throw new UserNotFoundException();
     }
 

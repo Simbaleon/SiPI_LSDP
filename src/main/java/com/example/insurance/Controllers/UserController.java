@@ -1,6 +1,7 @@
 package com.example.insurance.Controllers;
 
 import com.example.insurance.Data.Entities.UserEntity;
+import com.example.insurance.Data.InputModels.UserRegistrationInput;
 import com.example.insurance.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,12 @@ public class UserController {
     /**
      * Registration.
      *
-     * @param userEntity the user entity
+     * @param userRegistrationInput the user registration input
      */
     @PostMapping("/registration")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registration(@RequestBody UserEntity userEntity) {
-        userService.addNewUser(userEntity);
+    public void registration(@RequestBody UserRegistrationInput userRegistrationInput) {
+        userService.addNewUser(userRegistrationInput);
     }
 
     /**
