@@ -1,7 +1,4 @@
-.footer {
-    width: 100%;
-    background: #1c1427;
-    height: 200px;
-    font-size: 20px;
-    color: white;
+.logo {
+    font-family: 'Suez One', serif;
+    font-size: 35px;
 }

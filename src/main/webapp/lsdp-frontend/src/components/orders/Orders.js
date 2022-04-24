@@ -1,11 +1,9 @@
-import {backendHost} from "../../config/BackendConfig";
-
-function Orders() {
+function AllOrders() {
     return (
         <div>
-
+            <p>Здесь предполагается таблица со всеми доступными заказами с дрилдаунами</p>
         </div>
     )
 }
 
-export default Orders;
+export default AllOrders;
