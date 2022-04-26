@@ -40,12 +40,10 @@ public class UserService {
      * @param userRegistrationInput the user registration input
      */
     public void addNewUser(UserRegistrationInput userRegistrationInput) {
-        UserEntity user = UserEntity.builder()
-                .fullName(userRegistrationInput.getFullName())
-                .email(userRegistrationInput.getEmail())
-                .telephoneNumber(userRegistrationInput.getTelephoneNumber())
-                .password(userRegistrationInput.getPassword())
-                .build();
+        UserEntity user = new UserEntity();
+        user.setFullName(userRegistrationInput.getFullName());
+        user.setEmail(userRegistrationInput.getEmail());
+        user.setTelephoneNumber(userRegistrationInput.getTelephoneNumber());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
