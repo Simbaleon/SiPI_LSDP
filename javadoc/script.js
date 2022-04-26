@@ -88,19 +88,19 @@ function loadScripts(doc, tag) {
                 });
             });
     if (!moduleSearchIndex) {
-        createElem(doc, tag, 'module-search-index.js');
+        createElem(doc, tag, 'module-search-AxiosConfig.js');
     }
     if (!packageSearchIndex) {
-        createElem(doc, tag, 'package-search-index.js');
+        createElem(doc, tag, 'package-search-AxiosConfig.js');
     }
     if (!typeSearchIndex) {
-        createElem(doc, tag, 'type-search-index.js');
+        createElem(doc, tag, 'type-search-AxiosConfig.js');
     }
     if (!memberSearchIndex) {
-        createElem(doc, tag, 'member-search-index.js');
+        createElem(doc, tag, 'member-search-AxiosConfig.js');
     }
     if (!tagSearchIndex) {
-        createElem(doc, tag, 'tag-search-index.js');
+        createElem(doc, tag, 'tag-search-AxiosConfig.js');
     }
     $(window).resize(function() {
         $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
