@@ -3,8 +3,12 @@ package com.example.insurance.Data.Entities;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +36,7 @@ public class UserEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user")
-    private List<RefreshToken> refreshTokens;
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//    private List<RefreshToken> refreshTokens;
+
 }

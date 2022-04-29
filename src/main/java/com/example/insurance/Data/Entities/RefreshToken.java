@@ -2,6 +2,7 @@ package com.example.insurance.Data.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,6 +18,7 @@ public class RefreshToken extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private UserEntity user;
 
     private String token;

@@ -1,5 +1,6 @@
 package com.example.insurance.Security;
 
+import com.example.insurance.Data.Repositories.UserRepository;
 import com.example.insurance.Security.Filters.JWTAuthenticationFilter;
 import com.example.insurance.Security.Filters.JWTAuthorizationFilter;
 import com.example.insurance.Security.JWT.JWTTokenProvider;
@@ -24,6 +25,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
+    private UserRepository userRepository;
+
     private final UserDetailsService userDetailsService;
 
     /**
@@ -45,7 +48,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcC
                 .antMatchers("/clients/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtTokenProvider, refreshTokenProvider))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtTokenProvider, refreshTokenProvider, userRepository))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtTokenProvider, refreshTokenProvider))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         ;

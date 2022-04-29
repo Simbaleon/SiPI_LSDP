@@ -19,16 +19,16 @@ export default class UserStore {
     }
 
     login(email, password) {
-        try {
-            const response = AuthService.login(email, password)
-            console.log(response)
-            localStorage.setItem("accesstoken", response.headers.AccessToken)
-            localStorage.setItem("refreshtoken", response.headers.RefreshToken)
-            this.setAuth(true)
-            this.setUser(response.data)
-        } catch (e) {
-            console.log(e.response?.data?.message)
-        }
+        return AuthService.login(email, password)
+            .then((response) => {
+                localStorage.setItem("accesstoken", response.headers.accesstoken)
+                localStorage.setItem("refreshtoken", response.headers.refreshtoken)
+                this.setAuth(true)
+                this.setUser(response.data.user)
+                return Promise.resolve(response)
+            }).catch(() => {
+                return Promise.reject()
+            })
     }
 
     registration(fullName, email, telephoneNumber, password) {

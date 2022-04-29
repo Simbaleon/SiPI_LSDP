@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>lsdp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Backend</name>
+    <name>freelance-platform</name>
     <description>Backend</description>
     <properties>
         <java.version>11</java.version>
@@ -55,11 +55,6 @@
             <artifactId>java-jwt</artifactId>
             <version>3.18.2</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.jsonwebtoken</groupId>-->
-<!--            <artifactId>jjwt</artifactId>-->
-<!--            <version>0.9.1</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

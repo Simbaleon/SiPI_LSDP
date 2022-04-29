@@ -40,12 +40,14 @@ public class RefreshTokenProvider {
      * @param email the email
      * @return the refresh token
      */
+    @Transactional
     public RefreshToken createRefreshToken(String email) {
         UserEntity userEntity = userRepository.findByEmail(email);
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(userEntity);
         refreshToken.setToken(UUID.randomUUID().toString());
         refreshToken.setExpirationDate(new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRATION_TIME));
+        refreshTokenRepository.deleteAllByUser(userEntity);
         refreshTokenRepository.save(refreshToken);
         return refreshToken;
     }

@@ -1,6 +1,7 @@
 package com.example.insurance.Security.Filters;
 
 import com.example.insurance.Data.Entities.UserEntity;
+import com.example.insurance.Data.Repositories.UserRepository;
 import com.example.insurance.Exceptions.AuthenticationFailedException;
 import com.example.insurance.Security.JWT.JWTTokenProvider;
 import com.example.insurance.Security.JWT.RefreshTokenProvider;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.insurance.Security.JWT.SecurityConstants.*;
 
@@ -34,6 +37,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private JWTTokenProvider jwtTokenProvider;
 
     private RefreshTokenProvider refreshTokenProvider;
+
+    private UserRepository userRepository;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
@@ -60,6 +65,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshToken = refreshTokenProvider.createRefreshToken(username).getToken();
         response.addHeader(HEADER_ACCESS_TOKEN, TOKEN_PREFIX + accessToken);
         response.addHeader(HEADER_REFRESH_TOKEN, refreshToken);
+        response.addHeader("Access-Control-Expose-Headers", HEADER_ACCESS_TOKEN + "," + HEADER_REFRESH_TOKEN);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, UserEntity> body = new HashMap<>();
+        body.put("user", userRepository.findByEmail(username));
+        try {
+            objectMapper.writeValue(response.getOutputStream(), body);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
