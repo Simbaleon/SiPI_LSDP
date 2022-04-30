@@ -44,7 +44,7 @@ public class UserService {
         user.setFullName(userRegistrationInput.getFullName());
         user.setEmail(userRegistrationInput.getEmail());
         user.setTelephoneNumber(userRegistrationInput.getTelephoneNumber());
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(userRegistrationInput.getPassword()));
         user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
     }

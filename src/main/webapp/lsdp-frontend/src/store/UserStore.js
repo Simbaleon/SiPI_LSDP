@@ -32,12 +32,11 @@ export default class UserStore {
     }
 
     registration(fullName, email, telephoneNumber, password) {
-        try {
-            const response = AuthService.registration(fullName, email, telephoneNumber, password)
+        AuthService.registration(fullName, email, telephoneNumber, password).then(response => {
             console.log(response)
-        } catch (e) {
-            console.log(e.response?.data?.message)
-        }
+        }).catch(() => {
+            console.log("что-то сломалось при регистрации")
+        })
     }
 
     logout() {

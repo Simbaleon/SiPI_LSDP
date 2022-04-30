@@ -2,15 +2,14 @@ import axios from "axios";
 
 export const backendHost = "http://localhost:8081"
 
-const accessTokenPrefix = "Bearer_"
-
 const $api = axios.create({
     withCredentials: false,
     baseURL: backendHost
 })
 
 $api.interceptors.request.use((config) => {
-    config.headers.AccessToken = accessTokenPrefix + localStorage.getItem("accesstoken")
+    config.headers.AccessToken = localStorage.getItem("accesstoken")
+    config.headers.RefreshToken = localStorage.getItem("refreshtoken")
     return config
 })
 
