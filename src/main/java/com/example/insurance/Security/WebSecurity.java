@@ -6,6 +6,7 @@ import com.example.insurance.Security.Filters.JWTAuthorizationFilter;
 import com.example.insurance.Security.JWT.JWTTokenProvider;
 import com.example.insurance.Security.JWT.RefreshTokenProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +25,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+
+    @Value("${cross.origin.front.host}")
+    private final String crossOriginFrontHost;
 
     private UserRepository userRepository;
 
@@ -62,7 +66,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcC
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins(crossOriginFrontHost)
                 .allowedMethods("*");
     }
 
