@@ -6,6 +6,7 @@ import com.example.insurance.Security.Filters.JWTAuthorizationFilter;
 import com.example.insurance.Security.JWT.JWTTokenProvider;
 import com.example.insurance.Security.JWT.RefreshTokenProvider;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,25 +23,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * The type Web security.
  */
 @Configuration
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
-    @Value("${cross.origin.front.host}")
-    private final String crossOriginFrontHost;
+    @Value("${cross.origin.front.host:http://localhost:3000}")
+    private String crossOriginFrontHost;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private final UserDetailsService userDetailsService;
 
     /**
      * The Bcrypt password encoder.
      */
-    public BCryptPasswordEncoder bCryptPasswordEncoder;
+    public final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private JWTTokenProvider jwtTokenProvider;
+    private final JWTTokenProvider jwtTokenProvider;
 
-    private RefreshTokenProvider refreshTokenProvider;
+    private final RefreshTokenProvider refreshTokenProvider;
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
