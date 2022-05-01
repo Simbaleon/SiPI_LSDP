@@ -5,6 +5,7 @@ import com.example.insurance.Data.InputModels.UserRegistrationInput;
 import com.example.insurance.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +26,13 @@ public class UserController {
      * @param userRegistrationInput the user registration input
      */
     @PostMapping("/registration")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void registration(@RequestBody UserRegistrationInput userRegistrationInput) {
-        userService.addNewUser(userRegistrationInput);
+    public ResponseEntity<Void> registration(@RequestBody UserRegistrationInput userRegistrationInput) {
+        try {
+            userService.addNewUser(userRegistrationInput);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 
     /**

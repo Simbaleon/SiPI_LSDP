@@ -1,6 +1,8 @@
 import {AppBar, Button, Toolbar, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {NavLink} from "react-router-dom";
+import {useContext} from "react";
+import {Context} from "../../../index";
 
 const useStyles = makeStyles(() => ({
     header: {
@@ -26,7 +28,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const headersData = [
+const authButtonData = [
     {
         label: "Войти",
         href: "/signin",
@@ -37,7 +39,18 @@ const headersData = [
     }
 ];
 
-const getMenuButtons = (menuButton) => {
+const isAuthButtonForUser = [
+    {
+        label: "Профиль",
+        href: "/personalAccount"
+    },
+    {
+        label: "Выйти",
+        href: "/logout"
+    }
+]
+
+const getMenuButtons = (menuButton, headersData) => {
 
     return headersData.map(({ label, href }) => {
         return (
@@ -58,22 +71,24 @@ const getMenuButtons = (menuButton) => {
 
 function Header() {
     const { header, logo, menuButton, toolbar } = useStyles()
-
+    const {userStore} = useContext(Context)
     return (
-        // <div className={s.header}>
-        //     <div className={s.logo}>Freelance-platform</div>
-        //     <div className={s.menu}>
-        //         <NavLink to="/personalAccount">Личный кабинет</NavLink>
-        //         <NavLink to="/orders">Доступные заказы</NavLink>
-        //     </div>
-        // </div>
         <header>
             <AppBar position={"static"} className={header}>
                 <Toolbar className={toolbar}>
                     <Typography variant="h6" component="h1" className={logo}>
                         Freelance-platform
                     </Typography>
-                    <div>{getMenuButtons(menuButton)}</div>
+                    { userStore.isUser() === true ?
+                        (<div>
+                            {getMenuButtons(menuButton, isAuthButtonForUser)}
+                        </div>) : null
+                    }
+                    { userStore.isAuth === true ?
+                        null : (<div>
+                            {getMenuButtons(menuButton, authButtonData)}
+                        </div>)
+                    }
                 </Toolbar>
             </AppBar>
         </header>

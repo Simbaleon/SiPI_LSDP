@@ -1,23 +1,21 @@
-import {useContext, useState} from "react";
-import {Alert, Button, Grid, Snackbar, TextField} from "@mui/material";
+import {useContext} from "react";
+import {Button, Grid, TextField} from "@mui/material";
 import {Context} from "../../../index";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import MuiPhoneInput from 'material-ui-phone-number';
 import {useFormik} from "formik";
 import * as yup from "yup";
-import {useNavigate} from "react-router";
 
 function RegistrationPage() {
     const {userStore} = useContext(Context)
-    const navigate = useNavigate()
-    const [open, setOpen] = useState(false)
 
     const formik = useFormik({
         initialValues: {
             fullName: "",
             email: "",
             telephoneNumber: "",
-            password: ""
+            password: "",
+            role: "USER"
         },
         validateOnChange: true,
         validationSchema: yup.object({
@@ -29,12 +27,12 @@ function RegistrationPage() {
                 .min(8, "Пароль должен содержать не меньше 8 символов"),
             fullName: yup.string()
                 .required("Это поле обязательно"),
-            telephoneNumber: yup.string()
+            telephoneNumber: yup.string(),
+            role: yup.string()
+                .required("Это поле обязательно") //оно итак всегда будет заполнено))))
         }),
         onSubmit: (values => {
-            console.log(values.fullName, values.email, values.telephoneNumber, values.password)
-            userStore?.registration(values.fullName, values.email, values.telephoneNumber, values.password)
-            userStore.error ? setOpen(true) : navigate("/signin")
+            userStore?.registration(values.fullName, values.email, values.telephoneNumber, values.password, values.role)
         })
     })
 
@@ -47,6 +45,7 @@ function RegistrationPage() {
             justifyContent={"center"}
             style={{minHeight: '60vh'}}
         >
+            <div id={"alertAfterRegistration"} />
             <Grid item xs={5}>
                 <TextField
                     id="fullName"
@@ -95,6 +94,12 @@ function RegistrationPage() {
                     onChange={formik.handleChange}
                 />
             </Grid>
+            <Grid item xs={5}>
+                <select name={"role"} value={formik.values.role} onChange={formik.handleChange}>
+                    <option value={'USER'}>Пользователь</option>
+                    <option value={'ADMIN'}>Администратор</option>
+                </select>
+            </Grid>
             <Grid item xs={12}>
                 <Button
                     startIcon={<AppRegistrationIcon/>}
@@ -106,21 +111,6 @@ function RegistrationPage() {
                 </Button>
             </Grid>
             <Grid>
-                <Snackbar
-                    open={open}
-                    autoHideDuration={6000}
-                >
-                    <Alert
-                        onClose={(event, reason) => {
-                            if (reason === 'clickaway') {
-                                return;
-                            }
-                            setOpen(false);
-                        }}
-                        severity="success" sx={{width: '100%'}}>
-                        {userStore.error}
-                    </Alert>
-                </Snackbar>
             </Grid>
         </Grid>
     )

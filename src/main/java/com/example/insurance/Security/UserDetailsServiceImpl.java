@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println(email);
-        UserEntity registeredUser = userService.findUserByEmail(email);
+        UserEntity registeredUser = userService.getUserEntityByEmail(email);
         if (registeredUser == null)
             throw new UsernameNotFoundException("Пользователь с таким адресом эл.почты не зарегистрирован");
         return new User(registeredUser.getEmail(), registeredUser.getPassword(), registeredUser.getRoles());

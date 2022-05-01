@@ -1,14 +1,14 @@
 package com.example.insurance.Data.Repositories;
 
-import com.example.insurance.Data.Entities.RefreshToken;
 import com.example.insurance.Data.Entities.UserEntity;
+import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * The interface User repository.
  */
-@Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     /**
@@ -25,5 +25,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
      * @param email the email
      * @return the user entity
      */
-    UserEntity findByEmail(String email);
+    Optional<UserEntity> findByEmail(@NonNull String email);
+
+    UserEntity getByEmail(@NonNull String email);
 }

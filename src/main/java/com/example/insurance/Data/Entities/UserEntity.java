@@ -1,8 +1,7 @@
 package com.example.insurance.Data.Entities;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.Fetch;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +16,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-@Data
+@Setter
+@Getter
+@Accessors(chain = true)
 @NoArgsConstructor
 public class UserEntity extends BaseEntity {
 

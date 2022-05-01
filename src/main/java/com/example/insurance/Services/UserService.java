@@ -1,6 +1,5 @@
 package com.example.insurance.Services;
 
-import com.example.insurance.Data.Entities.Role;
 import com.example.insurance.Data.Entities.UserEntity;
 import com.example.insurance.Data.InputModels.UserRegistrationInput;
 import com.example.insurance.Exceptions.UserNotFoundException;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The type User service.
@@ -29,8 +29,8 @@ public class UserService {
      * @param email the email
      * @return the user entity
      */
-    public UserEntity findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public UserEntity getUserEntityByEmail(String email) {
+        return userRepository.getByEmail(email);
     }
 
 
@@ -40,13 +40,18 @@ public class UserService {
      * @param userRegistrationInput the user registration input
      */
     public void addNewUser(UserRegistrationInput userRegistrationInput) {
-        UserEntity user = new UserEntity();
-        user.setFullName(userRegistrationInput.getFullName());
-        user.setEmail(userRegistrationInput.getEmail());
-        user.setTelephoneNumber(userRegistrationInput.getTelephoneNumber());
-        user.setPassword(bCryptPasswordEncoder.encode(userRegistrationInput.getPassword()));
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(user);
+        Optional<UserEntity> dbUserByEmail = userRepository.findByEmail(userRegistrationInput.getEmail());
+        if (dbUserByEmail.isEmpty()) {
+            UserEntity user = new UserEntity()
+                    .setEmail(userRegistrationInput.getEmail())
+                    .setFullName(userRegistrationInput.getFullName())
+                    .setTelephoneNumber(userRegistrationInput.getTelephoneNumber())
+                    .setPassword(bCryptPasswordEncoder.encode(userRegistrationInput.getPassword()))
+                    .setRoles(Collections.singleton(userRegistrationInput.getRole()));
+            userRepository.save(user);
+        } else {
+            throw new UnsupportedOperationException();
+        }
     }
 
     /**

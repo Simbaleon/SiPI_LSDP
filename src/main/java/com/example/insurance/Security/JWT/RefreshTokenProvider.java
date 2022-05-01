@@ -42,7 +42,7 @@ public class RefreshTokenProvider {
      */
     @Transactional
     public RefreshToken createRefreshToken(String email) {
-        UserEntity userEntity = userRepository.findByEmail(email);
+        UserEntity userEntity = userRepository.getByEmail(email);
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(userEntity);
         refreshToken.setToken(UUID.randomUUID().toString());
@@ -85,7 +85,7 @@ public class RefreshTokenProvider {
             RefreshToken refreshToken = refreshTokenRepository.findByToken(oldRefreshToken);
             if (refreshToken == null) {
                 String email = jwtTokenProvider.decodeJWT(oldAccessToken);
-                UserEntity userEntity = userRepository.findByEmail(email);
+                UserEntity userEntity = userRepository.getByEmail(email);
                 if (userEntity != null)
                     refreshTokenRepository.deleteAllByUser(userEntity);
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no such token in the database");

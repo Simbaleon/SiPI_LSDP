@@ -1,8 +1,13 @@
 package com.example.insurance.Data.InputModels;
 
-import lombok.Data;
+import com.example.insurance.Data.Entities.Role;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserRegistrationInput {
 
     private String fullName;
@@ -12,5 +17,7 @@ public class UserRegistrationInput {
     private String telephoneNumber;
 
     private String password;
+
+    private Role role;
 
 }

@@ -7,11 +7,10 @@ import * as yup from "yup";
 import {useNavigate} from "react-router";
 
 function LoginPage() {
-    // const [email, setEmail] = useState("")
-    // const [password, setPassword] = useState("")
     const {userStore} = useContext(Context)
     const navigate = useNavigate();
     const [open, setOpen] = useState(false)
+
 
     const formik = useFormik({
         initialValues: {
@@ -30,11 +29,7 @@ function LoginPage() {
         onSubmit: (values => {
             console.log(values.email, values.password)
             userStore?.login(values.email, values.password)
-            if (userStore.error === null) {
-                setOpen(true)
-            } else {
-                navigate("/personalAccount")
-            }
+            navigate("/personalAccount")
         })
     })
 
@@ -81,24 +76,6 @@ function LoginPage() {
                     >
                         Войти
                     </Button>
-                </Grid>
-                <Grid>
-                    <Snackbar
-                        open={open}
-                        autoHideDuration={6000}
-                    >
-                        <Alert
-                            onClose={(event, reason) => {
-                                if (reason === 'clickaway') {
-                                    return;
-                                }
-                                setOpen(false);
-                            }}
-                            severity="error"
-                            sx={{width: '100%'}}>
-                            {userStore.error}
-                        </Alert>
-                    </Snackbar>
                 </Grid>
             </Grid>
         </form>
