@@ -54,6 +54,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
 
+
+
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
@@ -67,8 +69,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader(HEADER_REFRESH_TOKEN, refreshToken);
         response.addHeader("Access-Control-Expose-Headers", HEADER_ACCESS_TOKEN + "," + HEADER_REFRESH_TOKEN);
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, UserEntity> body = new HashMap<>();
-        body.put("user", userRepository.findByEmail(username));
+        Map<String, Collection<GrantedAuthority>> body = new HashMap<>();
+        body.put("role", ((User) authResult.getPrincipal()).getAuthorities());
         try {
             objectMapper.writeValue(response.getOutputStream(), body);
         } catch (IOException e) {

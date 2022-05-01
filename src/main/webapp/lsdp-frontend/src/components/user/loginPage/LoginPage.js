@@ -2,42 +2,64 @@ import {useContext, useState} from "react";
 import {Button, Grid, TextField} from "@mui/material";
 import {Context} from "../../../index";
 import LoginIcon from '@mui/icons-material/Login';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import {NavLink} from "react-router-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 function LoginPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const {userStore} = useContext(Context)
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: ""
+        },
+        validateOnChange: true,
+        validationSchema: yup.object({
+            email: yup.string()
+                .email("Invalid email")
+                .required("This field is required"),
+            password: yup.string()
+                .required("This field is required")
+                .min(8, "Must be 8 characters or more")
+        })
+    })
 
     return (
-        <Grid
-            container
-            rowSpacing={1}
-            direction="column"
-            alignItems={"center"}
-            justifyContent={"center"}
-            style={{minHeight: '50vh'}}
-        >
-            <Grid item xs={12} sm={6} md={3}>
-                <TextField
-                    helperText="Пожалуйста, введите почту"
-                    label="Эл. почта"
-                    type={"text"}
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-            </Grid>
-            <Grid item xs={5}>
-                <TextField
-                    helperText="Пожалуйста, введите пароль"
-                    label="Пароль"
-                    type={"password"}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-            </Grid>
-            <Grid item xs={12}>
+        <form>
+            <Grid
+                container
+                rowSpacing={1}
+                direction="column"
+                alignItems={"center"}
+                justifyContent={"center"}
+                style={{minHeight: '50vh'}}
+            >
+                <Grid item xs={12} sm={6} md={3}>
+                    <TextField
+                        error={formik.errors.email != null}
+                        helperText={formik.errors.email}
+                        id="email"
+                        name="email"
+                        label="Эл. почта"
+                        type={"text"}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                    />
+                </Grid>
+                <Grid item xs={5}>
+                    <TextField
+                        error={formik.errors.password != null}
+                        id="password"
+                        name="password"
+                        label="Пароль"
+                        type={"password"}
+                        helperText={formik.errors.password}
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
                     <Button
                         startIcon={<LoginIcon />}
                         variant={"contained"}
@@ -46,21 +68,9 @@ function LoginPage() {
                     >
                         Войти
                     </Button>
+                </Grid>
             </Grid>
-            <Grid item xs={5}>
-                <Button
-                    variant={"contained"}
-                    color={"warning"}
-                    startIcon={<AppRegistrationIcon />}
-                    {...{
-                        to: "/signUp",
-                        component: NavLink
-                    }}
-                >
-                    Регистрация
-                </Button>
-            </Grid>
-        </Grid>
+        </form>
     )
 }
 
