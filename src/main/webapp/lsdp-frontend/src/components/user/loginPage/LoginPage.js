@@ -1,14 +1,18 @@
 import {useContext, useState} from "react";
-import {Button, Grid, TextField} from "@mui/material";
+import {Alert, Button, Grid, Snackbar, TextField} from "@mui/material";
 import {Context} from "../../../index";
 import LoginIcon from '@mui/icons-material/Login';
-import { useFormik } from "formik";
+import {useFormik} from "formik";
 import * as yup from "yup";
+import {useNavigate} from "react-router";
 
 function LoginPage() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    // const [email, setEmail] = useState("")
+    // const [password, setPassword] = useState("")
     const {userStore} = useContext(Context)
+    const navigate = useNavigate();
+    const [open, setOpen] = useState(false)
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -22,6 +26,15 @@ function LoginPage() {
             password: yup.string()
                 .required("Это поле обязательно")
                 .min(8, "Пароль должен содержать не меньше 8 символов")
+        }),
+        onSubmit: (values => {
+            console.log(values.email, values.password)
+            userStore?.login(values.email, values.password)
+            if (userStore.error === null) {
+                setOpen(true)
+            } else {
+                navigate("/personalAccount")
+            }
         })
     })
 
@@ -61,13 +74,31 @@ function LoginPage() {
                 </Grid>
                 <Grid item xs={12}>
                     <Button
-                        startIcon={<LoginIcon />}
+                        startIcon={<LoginIcon/>}
                         variant={"contained"}
                         color={"success"}
-                        onClick={() => userStore?.login(email, password)}
+                        onClick={formik.handleSubmit}
                     >
                         Войти
                     </Button>
+                </Grid>
+                <Grid>
+                    <Snackbar
+                        open={open}
+                        autoHideDuration={6000}
+                    >
+                        <Alert
+                            onClose={(event, reason) => {
+                                if (reason === 'clickaway') {
+                                    return;
+                                }
+                                setOpen(false);
+                            }}
+                            severity="error"
+                            sx={{width: '100%'}}>
+                            {userStore.error}
+                        </Alert>
+                    </Snackbar>
                 </Grid>
             </Grid>
         </form>

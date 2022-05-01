@@ -1,13 +1,16 @@
-import {useContext} from "react";
-import {Button, Grid, TextField} from "@mui/material";
+import {useContext, useState} from "react";
+import {Alert, Button, Grid, Snackbar, TextField} from "@mui/material";
 import {Context} from "../../../index";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import MuiPhoneInput from 'material-ui-phone-number';
-import { useFormik } from "formik";
+import {useFormik} from "formik";
 import * as yup from "yup";
+import {useNavigate} from "react-router";
 
 function RegistrationPage() {
     const {userStore} = useContext(Context)
+    const navigate = useNavigate()
+    const [open, setOpen] = useState(false)
 
     const formik = useFormik({
         initialValues: {
@@ -31,6 +34,7 @@ function RegistrationPage() {
         onSubmit: (values => {
             console.log(values.fullName, values.email, values.telephoneNumber, values.password)
             userStore?.registration(values.fullName, values.email, values.telephoneNumber, values.password)
+            userStore.error ? setOpen(true) : navigate("/signin")
         })
     })
 
@@ -91,16 +95,33 @@ function RegistrationPage() {
                     onChange={formik.handleChange}
                 />
             </Grid>
-                <Grid item xs={12}>
-                    <Button
-                        startIcon={<AppRegistrationIcon />}
-                        variant={"contained"}
-                        color={"warning"}
-                        onClick={formik.handleSubmit}
-                    >
-                        Зарегистрироваться
-                    </Button>
-                </Grid>
+            <Grid item xs={12}>
+                <Button
+                    startIcon={<AppRegistrationIcon/>}
+                    variant={"contained"}
+                    color={"warning"}
+                    onClick={formik.handleSubmit}
+                >
+                    Зарегистрироваться
+                </Button>
+            </Grid>
+            <Grid>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                >
+                    <Alert
+                        onClose={(event, reason) => {
+                            if (reason === 'clickaway') {
+                                return;
+                            }
+                            setOpen(false);
+                        }}
+                        severity="success" sx={{width: '100%'}}>
+                        {userStore.error}
+                    </Alert>
+                </Snackbar>
+            </Grid>
         </Grid>
     )
 }

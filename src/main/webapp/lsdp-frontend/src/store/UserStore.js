@@ -3,7 +3,7 @@ import AuthService from "../services/AuthService";
 
 export default class UserStore {
 
-    user = {}
+    userRole = {}
     isAuth = false
 
     constructor() {
@@ -14,8 +14,8 @@ export default class UserStore {
         this.isAuth = bool
     }
 
-    setUser(user) {
-        this.user = user
+    setUserRole(userRole) {
+        this.userRole = userRole
     }
 
     login(email, password) {
@@ -24,7 +24,7 @@ export default class UserStore {
                 localStorage.setItem("accesstoken", response.headers.accesstoken)
                 localStorage.setItem("refreshtoken", response.headers.refreshtoken)
                 this.setAuth(true)
-                this.setUser(response.data.user)
+                this.setUserRole(response.data.role)
                 return Promise.resolve(response)
             }).catch(() => {
                 return Promise.reject()
