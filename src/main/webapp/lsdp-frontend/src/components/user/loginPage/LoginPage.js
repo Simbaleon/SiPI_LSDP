@@ -17,11 +17,11 @@ function LoginPage() {
         validateOnChange: true,
         validationSchema: yup.object({
             email: yup.string()
-                .email("Invalid email")
-                .required("This field is required"),
+                .email("Неправильный формат эл.почты")
+                .required("Это поле обязательно"),
             password: yup.string()
-                .required("This field is required")
-                .min(8, "Must be 8 characters or more")
+                .required("Это поле обязательно")
+                .min(8, "Пароль должен содержать не меньше 8 символов")
         })
     })
 
