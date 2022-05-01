@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {Button, Grid, TextField} from "@mui/material";
 import {Context} from "../../../index";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
@@ -7,10 +7,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 function RegistrationPage() {
-    const [fullName, setFullName] = useState("")
-    const [email, setEmail] = useState("")
-    const [telephoneNumber, setTelephoneNumber] = useState("")
-    const [password, setPassword] = useState("")
     const {userStore} = useContext(Context)
 
     const formik = useFormik({
@@ -31,7 +27,10 @@ function RegistrationPage() {
             fullName: yup.string()
                 .required("This field is required"),
             telephoneNumber: yup.string()
-                .required("This field is required")
+        }),
+        onSubmit: (values => {
+            console.log(values.fullName, values.email, values.telephoneNumber, values.password)
+            userStore?.registration(values.fullName, values.email, values.telephoneNumber, values.password)
         })
     })
 
@@ -97,7 +96,7 @@ function RegistrationPage() {
                         startIcon={<AppRegistrationIcon />}
                         variant={"contained"}
                         color={"warning"}
-                        onClick={() => userStore?.registration(fullName, email, telephoneNumber, password)}
+                        onClick={formik.handleSubmit}
                     >
                         Зарегистрироваться
                     </Button>
