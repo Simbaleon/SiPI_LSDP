@@ -5,6 +5,7 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import {useFormik} from "formik";
 import * as yup from "yup";
 import NumberFormat from "react-number-format";
+import {observer} from "mobx-react-lite";
 
 function NumberFormatCustom(props) {
     const {inputRef, ...other} = props;
@@ -19,8 +20,10 @@ function NumberFormatCustom(props) {
     );
 }
 
-function RegistrationPage() {
+const RegistrationPage = observer(() => {
     const {userStore} = useContext(Context)
+
+    console.log("registration render")
 
     const formik = useFormik({
         initialValues: {
@@ -130,6 +133,6 @@ function RegistrationPage() {
             </Grid>
         </Grid>
     )
-}
+})
 
 export default RegistrationPage;

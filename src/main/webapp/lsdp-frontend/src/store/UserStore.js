@@ -24,6 +24,10 @@ export default class UserStore {
         return this.userRole.includes('USER')
     }
 
+    isAdmin() {
+        return this.userRole.includes('ADMIN')
+    }
+
     login(email, password) {
         return AuthService.login(email, password)
             .then((response) => {
@@ -31,7 +35,6 @@ export default class UserStore {
                 localStorage.setItem("refreshtoken", response.headers.refreshtoken)
                 this.setAuth(true)
                 this.setUserRole(response.data.role)
-                console.log(this.userRole.includes('USER'))
                 return Promise.resolve(response)
             }).catch(() => {
                 return Promise.reject()
@@ -53,7 +56,7 @@ export default class UserStore {
         localStorage.removeItem("accesstoken")
         localStorage.removeItem("refreshtoken")
         this.setAuth(false)
-        this.setUser({})
+        this.setUserRole([])
     }
 
 }

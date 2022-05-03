@@ -5,10 +5,13 @@ import LoginIcon from '@mui/icons-material/Login';
 import {useFormik} from "formik";
 import * as yup from "yup";
 import {useNavigate} from "react-router";
+import {observer} from "mobx-react-lite";
 
-function LoginPage() {
+const LoginPage = observer(() => {
     const {userStore} = useContext(Context)
     const navigate = useNavigate();
+
+    console.log("login render")
 
     const formik = useFormik({
         initialValues: {
@@ -78,6 +81,6 @@ function LoginPage() {
             </Grid>
         </form>
     )
-}
+})
 
 export default LoginPage;
