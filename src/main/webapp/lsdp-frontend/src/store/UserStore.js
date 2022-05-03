@@ -1,7 +1,6 @@
 import {makeAutoObservable} from "mobx";
 import AuthService from "../services/AuthService";
-import {createRoot} from "react-dom/client";
-import {Alert, Snackbar} from "@mui/material";
+import SnackbarConstructor from "../components/common/snackbarConstructor/SnackbarConstructor";
 
 
 export default class UserStore {
@@ -40,26 +39,13 @@ export default class UserStore {
     }
 
     registration(fullName, email, telephoneNumber, password, role) {
-        const alertContainer = document.getElementById('alertAfterRegistration');
-        const root = createRoot(alertContainer);
         AuthService.registration(fullName, email, telephoneNumber, password, role).then(response => {
             if (response.status === 201) {
-                root.render(
-                    <Snackbar open={true} autoHideDuration={6000}>
-                        <Alert severity="success" sx={{ width: '100%' }} >
-                            Успешная регистрация.
-                        </Alert>
-                    </Snackbar>
-                );
+                SnackbarConstructor("alertAfterRegistration", "success", "Успешная регистрация")
             }
-        }).catch(() => {
-            root.render(
-                <Snackbar open={true} autoHideDuration={6000} >
-                    <Alert severity="error" sx={{ width: '100%' }} >
-                        Пользователь с таким email уже существует.
-                    </Alert>
-                </Snackbar>
-            );
+        }).catch((err) => {
+            console.log(err)
+            SnackbarConstructor("alertAfterRegistration", "error", "Пользователь с таким email уже существует")
         })
     }
 
