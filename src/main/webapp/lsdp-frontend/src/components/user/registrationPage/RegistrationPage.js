@@ -2,9 +2,22 @@ import {useContext} from "react";
 import {Button, Grid, TextField} from "@mui/material";
 import {Context} from "../../../index";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import MuiPhoneInput from 'material-ui-phone-number';
 import {useFormik} from "formik";
 import * as yup from "yup";
+import NumberFormat from "react-number-format";
+
+function NumberFormatCustom(props) {
+    const {inputRef, ...other} = props;
+
+    return (
+        <NumberFormat
+            {...other}
+            getInputRef={inputRef}
+            format="+7 (###) ###-####"
+            mask="_"
+        />
+    );
+}
 
 function RegistrationPage() {
     const {userStore} = useContext(Context)
@@ -27,7 +40,7 @@ function RegistrationPage() {
                 .min(8, "Пароль должен содержать не меньше 8 символов"),
             fullName: yup.string()
                 .required("Это поле обязательно"),
-            telephoneNumber: yup.string(),
+            telephoneNumber: yup.string().required("Это поле обязательно"),
             role: yup.string()
                 .required("Это поле обязательно") //оно итак всегда будет заполнено))))
         }),
@@ -72,6 +85,21 @@ function RegistrationPage() {
             </Grid>
             <Grid item xs={5}>
                 <TextField
+                    value={formik.values.telephoneNumber}
+                    onChange={formik.handleChange}
+                    error={formik.errors.telephoneNumber != null}
+                    helperText={formik.errors.telephoneNumber}
+                    id="telephoneNumber"
+                    name="telephoneNumber"
+                    label="Номер телефона"
+
+                    InputProps={{
+                        inputComponent: NumberFormatCustom,
+                    }}
+                />
+            </Grid>
+            <Grid item xs={5}>
+                <TextField
                     id="password"
                     name="password"
                     error={formik.errors.password != null}
@@ -79,18 +107,6 @@ function RegistrationPage() {
                     label="Пароль"
                     type={"password"}
                     value={formik.values.password}
-                    onChange={formik.handleChange}
-                />
-            </Grid>
-            <Grid item xs={5}>
-                <MuiPhoneInput
-                    defaultCountry='ru'
-                    id="telephoneNumber"
-                    name="telephoneNumber"
-                    error={formik.errors.telephoneNumber != null}
-                    helperText={formik.errors.telephoneNumber}
-                    label="Номер телефона"
-                    value={formik.values.telephoneNumber}
                     onChange={formik.handleChange}
                 />
             </Grid>

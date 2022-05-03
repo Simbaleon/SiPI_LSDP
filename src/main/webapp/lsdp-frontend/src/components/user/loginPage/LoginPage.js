@@ -1,5 +1,5 @@
-import {useContext, useState} from "react";
-import {Alert, Button, Grid, Snackbar, TextField} from "@mui/material";
+import {useContext} from "react";
+import {Button, Grid, TextField} from "@mui/material";
 import {Context} from "../../../index";
 import LoginIcon from '@mui/icons-material/Login';
 import {useFormik} from "formik";
@@ -9,8 +9,6 @@ import {useNavigate} from "react-router";
 function LoginPage() {
     const {userStore} = useContext(Context)
     const navigate = useNavigate();
-    const [open, setOpen] = useState(false)
-
 
     const formik = useFormik({
         initialValues: {
