@@ -27,5 +27,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
      */
     Optional<UserEntity> findByEmail(@NonNull String email);
 
+    Optional<UserEntity> findByEmailOrTelephoneNumber(@NonNull String email, @NonNull String telephoneNumber);
+
     UserEntity getByEmail(@NonNull String email);
 }

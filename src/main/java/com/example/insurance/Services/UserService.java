@@ -40,7 +40,10 @@ public class UserService {
      * @param userRegistrationInput the user registration input
      */
     public void addNewUser(UserRegistrationInput userRegistrationInput) {
-        Optional<UserEntity> dbUserByEmail = userRepository.findByEmail(userRegistrationInput.getEmail());
+        Optional<UserEntity> dbUserByEmail = userRepository.findByEmailOrTelephoneNumber(
+                userRegistrationInput.getEmail(),
+                userRegistrationInput.getTelephoneNumber()
+        );
         if (dbUserByEmail.isEmpty()) {
             UserEntity user = new UserEntity()
                     .setEmail(userRegistrationInput.getEmail())
