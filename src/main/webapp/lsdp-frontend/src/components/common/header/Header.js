@@ -49,7 +49,7 @@ const Header = observer(() => {
                                 className={menuButton}
                                 color={"inherit"}
                                 variant={"outlined"}
-                                onClick={navigate("/personalAccount")}>
+                                onClick={() => navigate("/personalAccount")}>
                                 Профиль
                             </Button>
                         </div>
@@ -61,7 +61,7 @@ const Header = observer(() => {
                                 className={menuButton}
                                 color={"inherit"}
                                 variant={"outlined"}
-                                onClick={navigate("/adminPage")}>
+                                onClick={() => navigate("/adminPage")}>
                                 Страница администратора
                             </Button>
                         </div> : null
@@ -72,7 +72,7 @@ const Header = observer(() => {
                                 className={menuButton}
                                 color={"inherit"}
                                 variant={"outlined"}
-                                onClick={navigate("/orders")}>
+                                onClick={() => navigate("/orders")}>
                                 Заказы
                             </Button>
                             <Button
@@ -81,7 +81,7 @@ const Header = observer(() => {
                                 variant={"outlined"}
                                 onClick={() => {
                                     userStore.logout()
-                                    navigate("/signin")
+                                    navigate("/")
                                 }}>
                                 Выйти
                             </Button>
@@ -92,14 +92,14 @@ const Header = observer(() => {
                                 className={menuButton}
                                 color={"inherit"}
                                 variant={"outlined"}
-                                onClick={navigate("/signin")}>
+                                onClick={() => navigate("/signin")}>
                                 Войти
                             </Button>
                             <Button
                                 className={menuButton}
                                 color={"inherit"}
                                 variant={"outlined"}
-                                onClick={navigate("/signup")}>
+                                onClick={() => navigate("/signup")}>
                                 Зарегистрироваться
                             </Button>
                         </div>
