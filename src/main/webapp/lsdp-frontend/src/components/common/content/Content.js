@@ -4,6 +4,7 @@ import AllOrders from "../../orders/Orders";
 import PersonalAccount from "../../user/personalAccount/PersonalAccount";
 import LoginPage from "../../user/loginPage/LoginPage";
 import RegistrationPage from "../../user/registrationPage/RegistrationPage";
+import CreateOrder from "../../orders/CreateOrder";
 
 function Content() {
     return (
@@ -13,6 +14,7 @@ function Content() {
                 <Route path="/orders" element={<AllOrders/>}/>
                 <Route path="/personalAccount" element={<PersonalAccount/>}/>
                 <Route path="/signUp" element={<RegistrationPage/>}/>
+                <Route path="/orders/create" element={<CreateOrder/>}/>
             </Routes>
         </div>
     )

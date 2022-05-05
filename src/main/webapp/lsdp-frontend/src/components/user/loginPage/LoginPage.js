@@ -6,6 +6,7 @@ import {useFormik} from "formik";
 import * as yup from "yup";
 import {useNavigate} from "react-router";
 import {observer} from "mobx-react-lite";
+import SnackbarConstructor from "../../common/snackbarConstructor/SnackbarConstructor";
 
 const LoginPage = observer(() => {
     const {userStore} = useContext(Context)
@@ -30,7 +31,13 @@ const LoginPage = observer(() => {
         onSubmit: (values => {
             console.log(values.email, values.password)
             userStore?.login(values.email, values.password)
-            navigate("/personalAccount")
+                .then(() => {
+                    SnackbarConstructor("alertAfterLogin", "success", "Успешная авторизация")
+                    navigate("/personalAccount")
+                }).catch(() => {
+                SnackbarConstructor("alertAfterLogin", "error", "Неправильный адрес эл.почты или пароль")
+            })
+
         })
     })
 
@@ -44,6 +51,7 @@ const LoginPage = observer(() => {
                 justifyContent={"center"}
                 style={{minHeight: '50vh'}}
             >
+                <div id={"alertAfterLogin"} />
                 <Grid item xs={12} sm={6} md={3}>
                     <TextField
                         error={formik.errors.email != null}
