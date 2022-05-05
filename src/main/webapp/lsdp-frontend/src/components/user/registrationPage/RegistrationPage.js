@@ -138,8 +138,6 @@ const RegistrationPage = observer(() => {
                     Зарегистрироваться
                 </Button>
             </Grid>
-            <Grid>
-            </Grid>
         </Grid>
     )
 })
