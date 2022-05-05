@@ -6,6 +6,8 @@ import {useFormik} from "formik";
 import * as yup from "yup";
 import NumberFormat from "react-number-format";
 import {observer} from "mobx-react-lite";
+import SnackbarConstructor from "../../common/snackbarConstructor/SnackbarConstructor";
+import {useNavigate} from "react-router";
 
 function NumberFormatCustom(props) {
     const {inputRef, ...other} = props;
@@ -22,6 +24,7 @@ function NumberFormatCustom(props) {
 
 const RegistrationPage = observer(() => {
     const {userStore} = useContext(Context)
+    const navigate = useNavigate();
 
     console.log("registration render")
 
@@ -49,6 +52,12 @@ const RegistrationPage = observer(() => {
         }),
         onSubmit: (values => {
             userStore?.registration(values.fullName, values.email, values.telephoneNumber, values.password, values.role)
+                .then(() => {
+                    SnackbarConstructor("alertAfterRegistration", "success", "Успешная регистрация")
+                    navigate("/signin")
+                }).catch(() => {
+                SnackbarConstructor("alertAfterRegistration", "error", "Пользователь с таким адресом эл.почты или номером телефона уже существует")
+            })
         })
     })
 

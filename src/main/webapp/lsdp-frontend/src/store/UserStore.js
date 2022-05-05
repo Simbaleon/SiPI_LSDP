@@ -42,14 +42,18 @@ export default class UserStore {
     }
 
     registration(fullName, email, telephoneNumber, password, role) {
-        AuthService.registration(fullName, email, telephoneNumber, password, role).then(response => {
-            if (response.status === 201) {
-                SnackbarConstructor("alertAfterRegistration", "success", "Успешная регистрация")
-            }
-        }).catch((err) => {
-            console.log(err)
-            SnackbarConstructor("alertAfterRegistration", "error", "Пользователь с таким email уже существует")
-        })
+        return AuthService.registration(fullName, email, telephoneNumber, password, role)
+            .then(response => {
+                // if (response.status === 201) {
+                //     SnackbarConstructor("alertAfterRegistration", "success", "Успешная регистрация")
+                // }
+                return Promise.resolve(response)
+            })
+            .catch((err) => {
+                return Promise.reject()
+                // console.log(err)
+                // SnackbarConstructor("alertAfterRegistration", "error", "Пользователь с таким email уже существует")
+            })
     }
 
     logout() {

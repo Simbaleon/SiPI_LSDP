@@ -75,6 +75,11 @@ const Header = observer(() => {
                                 onClick={() => navigate("/orders")}>
                                 Заказы
                             </Button>
+                        </div>
+                        : null
+                    }
+                    {userStore.isAuth ?
+                        <div>
                             <Button
                                 className={menuButton}
                                 color={"inherit"}
