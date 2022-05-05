@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+                   logicalFilePath="/database/changelog/0004-init-order-table.xml">
+
+    <changeSet id="init order table" author="dponomarev">
+        <createTable tableName="order">
+            <column name="ID" remarks="Identifier" type="NUMBER(19, 0)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column type="varchar" name="subject" />
+            <column type="varchar" name="description" />
+            <column type="varchar" name="type" />
+            <column type="TIMESTAMP(6)" name="deadline" />
+            <column type="NUMBER(19, 0)" name="AUTHOR_USER_ID">
+                <constraints foreignKeyName="AUTHOR_USER_ID" references="USERS(ID)" />
+            </column>
+            <column type="NUMBER(19, 0)" name="EXECUTOR_USER_ID">
+                <constraints foreignKeyName="EXECUTOR_USER_ID" references="USERS(ID)" />
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

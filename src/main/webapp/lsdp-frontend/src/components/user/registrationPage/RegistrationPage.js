@@ -14,7 +14,7 @@ function NumberFormatCustom(props) {
         <NumberFormat
             {...other}
             getInputRef={inputRef}
-            format="+7 (###) ###-####"
+            // format="+7 (###) ###-####"
             mask="_"
         />
     );
