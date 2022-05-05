@@ -104,10 +104,11 @@ const RegistrationPage = observer(() => {
                     id="telephoneNumber"
                     name="telephoneNumber"
                     label="Номер телефона"
+                    type={"tel"}
 
-                    InputProps={{
-                        inputComponent: NumberFormatCustom,
-                    }}
+                    // InputProps={{
+                    //     inputComponent: NumberFormatCustom,
+                    // }}
                 />
             </Grid>
             <Grid item xs={5}>

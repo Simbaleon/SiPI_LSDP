@@ -5,16 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import UserStore from "./store/UserStore";
+import OrderStore from "./store/OrderStore";
 
 
 const userStore = new UserStore()
 
-export const Context = createContext({userStore})
+const orderStore = new OrderStore()
+
+export const Context = createContext({userStore , orderStore})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <Context.Provider value={{userStore}}>
+        <Context.Provider value={{userStore: userStore, orderStore: orderStore}}>
             <BrowserRouter>
                 <App/>
             </BrowserRouter>

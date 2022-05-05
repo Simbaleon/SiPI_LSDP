@@ -9,7 +9,7 @@ const PersonalAccount = observer(() => {
             <p>Здесь будет располагаться инфа о пользователе</p>
             <h3>Заказы</h3>
             <Button onClick={() => navigate("/orders/create")}>
-
+                Создать новый заказ
             </Button>
             <p>Здесь будет таблица с принятыми заказами с дрилдаунами</p>
         </div>

@@ -4,14 +4,20 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import {useFormik} from "formik";
 import * as yup from "yup";
 import SnackbarConstructor from "../common/snackbarConstructor/SnackbarConstructor";
+import {useContext} from "react";
+import {Context} from "../../index";
+import {useNavigate} from "react-router";
 
-const CreateOrder = observer(() => {
+const CreateOrderPage = observer(() => {
+    const { orderStore } = useContext(Context)
+    const navigate = useNavigate()
+
     const formik = useFormik({
         initialValues: {
             subject: "",
             description: "",
             orderType: "PROGRAMMING",
-            deadline: "",
+            deadline: null,
             price: ""
         },
         validateOnChange: true,
@@ -31,7 +37,11 @@ const CreateOrder = observer(() => {
         }),
         onSubmit: (values => {
             console.log(values.subject, values.description, values.orderType, values.deadline, values.price)
-            SnackbarConstructor("alertAfterCreatingOrder", "success", "Заказ успешно создан")
+            orderStore?.createOrder(values.subject, values.description, values.orderType, values.deadline, values.price)
+                .then(() => {
+                    SnackbarConstructor("alertAfterCreatingOrder", "success", "Заказ успешно создан")
+                    navigate("/personalAccount")
+                })
         })
     })
 
@@ -119,4 +129,4 @@ const CreateOrder = observer(() => {
     )
 })
 
-export default CreateOrder;
+export default CreateOrderPage;
