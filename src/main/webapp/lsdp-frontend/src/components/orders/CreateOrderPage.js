@@ -17,7 +17,7 @@ const CreateOrderPage = observer(() => {
             subject: "",
             description: "",
             orderType: "PROGRAMMING",
-            deadline: null,
+            deadline: new Date(),
             price: ""
         },
         validateOnChange: true,
@@ -37,7 +37,7 @@ const CreateOrderPage = observer(() => {
         }),
         onSubmit: (values => {
             console.log(values.subject, values.description, values.orderType, values.deadline, values.price)
-            orderStore?.createOrder(values.subject, values.description, values.orderType, values.deadline, values.price)
+            orderStore?.createOrder(values.subject, values.description, values.orderType, new Date(values.deadline), values.price)
                 .then(() => {
                     SnackbarConstructor("alertAfterCreatingOrder", "success", "Заказ успешно создан")
                     navigate("/personalAccount")
@@ -87,8 +87,8 @@ const CreateOrderPage = observer(() => {
                     error={formik.errors.orderType != null}
                     onChange={formik.handleChange}
                 >
-                    <option value={'1'}>1</option>
-                    <option value={'2'}>2</option>
+                    <option value={"PROGRAMMING"}>PROGRAMMING</option>
+                    <option value={"TEXTS"}>TEXTS</option>
                 </select>
             </Grid>
             <Grid item xs={5}>
