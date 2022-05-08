@@ -2,6 +2,10 @@ package com.example.insurance.data.enumerations;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 @Getter
 @AllArgsConstructor
@@ -25,5 +29,9 @@ public enum OrderType {
 	TELEGRAMBOT("Телеграм боты");
 
 	private String uiValue;
+
+	public static Optional<OrderType> getByUIValue(@NonNull String uiValue) {
+		return Arrays.stream(OrderType.values()).filter(orderType -> orderType.getUiValue().equals(uiValue)).findFirst();
+	}
 
 }

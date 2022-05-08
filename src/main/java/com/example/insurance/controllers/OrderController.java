@@ -1,6 +1,7 @@
 package com.example.insurance.controllers;
 
 import com.example.insurance.data.entities.Order;
+import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import com.example.insurance.services.OrderService;
@@ -8,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class OrderController {
      * @return the response entity
      */
     @PostMapping("/create")
-    public ResponseEntity<Void> createOrder(@RequestBody CreateOrderInputDTO order) {
+    public ResponseEntity<Void> createOrder(@RequestBody CreateOrderInputDTO order, @AuthenticationPrincipal UserEntity user) {
         orderService.createOrder(order);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -69,4 +70,5 @@ public class OrderController {
     public ResponseEntity<Map<String, List<Order>>> getOrdersByUserId(@RequestParam Long id) {
         return ResponseEntity.ok(orderService.getOrdersByUserId(id));
     }
+
 }

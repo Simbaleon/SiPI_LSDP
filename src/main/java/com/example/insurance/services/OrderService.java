@@ -1,6 +1,7 @@
 package com.example.insurance.services;
 
 import com.example.insurance.data.entities.Order;
+import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.repositories.OrderRepository;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +32,13 @@ public class OrderService {
      */
     public void createOrder(CreateOrderInputDTO orderInputDTO) {
         Order order = new Order();
-        order.setSubject(orderInputDTO.getSubject());
-        order.setDescription(orderInputDTO.getDescription());
-        order.setType(orderInputDTO.getOrderType());
-        order.setDeadline(orderInputDTO.getDeadline());
-        order.setPrice(orderInputDTO.getPrice());
-        UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        order.setAuthorUser(userService.getUserEntityByEmail(currentUser.getUsername()));
+//        order.setSubject(orderInputDTO.getSubject());
+//        order.setDescription(orderInputDTO.getDescription());
+//        order.setType(OrderType.getByUIValue(orderInputDTO.getOrderType()).get());
+//        order.setDeadline(orderInputDTO.getDeadline());
+//        order.setPrice(orderInputDTO.getPrice());
+//        UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        order.setAuthorUser(userService.getUserEntityByEmail(currentUser.getUsername()));
         orderRepository.save(order);
     }
 

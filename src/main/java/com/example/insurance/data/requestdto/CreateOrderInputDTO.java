@@ -16,7 +16,7 @@ public class CreateOrderInputDTO {
 
     private String description;
 
-    private OrderType orderType;
+    private String orderType;
 
     private LocalDateTime deadline;
 

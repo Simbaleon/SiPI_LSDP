@@ -2,6 +2,7 @@ package com.example.insurance.security.filters;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.security.jwt.JWTTokenProvider;
 import com.example.insurance.security.jwt.RefreshTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,24 +71,24 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String refreshToken = request.getHeader(HEADER_REFRESH_TOKEN);
         if (accessToken != null && refreshToken != null) {
             try {
-                String username = jwtTokenProvider.getUsernameFromToken(accessToken);
+                UserEntity user = jwtTokenProvider.getUserFromToken(accessToken);
                 String role = jwtTokenProvider.getRoleFromToken(accessToken);
                 List<GrantedAuthority> roles = new ArrayList<>();
                 roles.add(new SimpleGrantedAuthority(role));
-                if (username != null)
-                    return new UsernamePasswordAuthenticationToken(username, null, roles);
+                if (user != null)
+                    return new UsernamePasswordAuthenticationToken(user, null, roles);
             } catch (JWTDecodeException e) {
                 return null;
             }
             catch (TokenExpiredException e) {
                 String newAccessToken = refreshTokenProvider.updateTokens(request, response);
                 if (newAccessToken != null) {
-                    String usernameFromNewToken = jwtTokenProvider.getUsernameFromToken(newAccessToken);
+                    UserEntity user = jwtTokenProvider.getUserFromToken(newAccessToken);
                     String roleFromNewToken = jwtTokenProvider.getRoleFromToken(newAccessToken);
                     List<GrantedAuthority> rolesFromNewToken = new ArrayList<>();
                     rolesFromNewToken.add(new SimpleGrantedAuthority(roleFromNewToken));
-                    if (usernameFromNewToken != null)
-                        return new UsernamePasswordAuthenticationToken(usernameFromNewToken, null, rolesFromNewToken);
+                    if (user != null)
+                        return new UsernamePasswordAuthenticationToken(user, null, rolesFromNewToken);
                 }
             }
         }

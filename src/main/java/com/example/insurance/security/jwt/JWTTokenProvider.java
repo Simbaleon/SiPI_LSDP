@@ -3,6 +3,9 @@ package com.example.insurance.security.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.insurance.data.entities.Role;
+import com.example.insurance.data.entities.UserEntity;
+import com.example.insurance.data.repositories.UserRepository;
+import lombok.AllArgsConstructor;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,7 +19,10 @@ import static com.example.insurance.security.jwt.SecurityConstants.*;
  * The type Jwt token provider.
  */
 @Component
+@AllArgsConstructor
 public class JWTTokenProvider {
+
+    private final UserRepository userRepository;
 
     /**
      * Create jwt token string.
@@ -46,11 +52,12 @@ public class JWTTokenProvider {
      * @param token the token
      * @return the username from token
      */
-    public String getUsernameFromToken(String token) {
-        return JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+    public UserEntity getUserFromToken(String token) {
+        String userName = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                 .build()
                 .verify(token.replace(TOKEN_PREFIX, ""))
                 .getSubject();
+        return userRepository.getByEmail(userName);
     }
 
     /**
