@@ -5,7 +5,7 @@
                    logicalFilePath="/database/changelog/0005-alter-table-orders.xml">
 
     <changeSet id="alter table orders" author="akanenkov">
-        <addColumn tableName="order">
+        <addColumn tableName="orders">
             <column name="price" type="NUMBER(19,2)" />
         </addColumn>
     </changeSet>

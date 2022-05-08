@@ -4,6 +4,7 @@ import com.example.insurance.data.enumerations.OrderType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,7 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "ORDER")
+@Table(name = "ORDERS")
+@Accessors(chain = true)
 @NoArgsConstructor
 public class Order extends BaseEntity {
 

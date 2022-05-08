@@ -5,7 +5,7 @@
                    logicalFilePath="/database/changelog/0004-init-order-table.xml">
 
     <changeSet id="init order table" author="dponomarev">
-        <createTable tableName="order">
+        <createTable tableName="orders">
             <column name="ID" remarks="Identifier" type="NUMBER(19, 0)">
                 <constraints primaryKey="true"/>
             </column>

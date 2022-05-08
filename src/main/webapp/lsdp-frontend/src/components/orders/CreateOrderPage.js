@@ -4,19 +4,20 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import {useFormik} from "formik";
 import * as yup from "yup";
 import SnackbarConstructor from "../common/snackbarConstructor/SnackbarConstructor";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {Context} from "../../index";
 import {useNavigate} from "react-router";
 
 const CreateOrderPage = observer(() => {
     const { orderStore } = useContext(Context)
     const navigate = useNavigate()
+    const [orderTypes, setOrders] = useState([])
 
     const formik = useFormik({
         initialValues: {
             subject: "",
             description: "",
-            orderType: "PROGRAMMING",
+            // orderType: "",
             deadline: new Date(),
             price: ""
         },
@@ -26,8 +27,8 @@ const CreateOrderPage = observer(() => {
                 .required("Это поле обязательно"),
             description: yup.string()
                 .required("Это поле обязательно"),
-            orderType: yup.string()
-                .required("Это поле обязательно"),
+            // orderType: yup.string()
+            //     .required("Это поле обязательно"),
             deadline: yup.date()
                 .min(new Date(), "Некорректная дата сдачи работ")
                 .required("Это поле обязательно"),
@@ -36,14 +37,20 @@ const CreateOrderPage = observer(() => {
                 .required("Это поле обязательно") //оно итак всегда будет заполнено))))
         }),
         onSubmit: (values => {
-            console.log(values.subject, values.description, values.orderType, values.deadline, values.price)
-            orderStore?.createOrder(values.subject, values.description, values.orderType, new Date(values.deadline), values.price)
+            orderStore?.createOrder(values.subject, values.description, new Date(values.deadline), values.price)
                 .then(() => {
                     SnackbarConstructor("alertAfterCreatingOrder", "success", "Заказ успешно создан")
                     navigate("/personalAccount")
                 })
         })
     })
+
+
+    orderStore.getOrderTypes().then(r => {
+        const types = r.data;
+        setOrders(types)
+    })
+    console.log('order types are ' + orderTypes)
 
     return (
         <Grid
@@ -80,15 +87,15 @@ const CreateOrderPage = observer(() => {
                 />
             </Grid>
             <Grid item xs={5}>
+
                 <select
                     id={"orderType"}
                     name={"orderType"}
-                    value={formik.values.orderType}
-                    error={formik.errors.orderType != null}
-                    onChange={formik.handleChange}
+                    value={orderTypes}
+                    // error={formik.errors.orderType != null}
+                    // onChange={formik.handleChange}
                 >
-                    <option value={"PROGRAMMING"}>PROGRAMMING</option>
-                    <option value={"TEXTS"}>TEXTS</option>
+
                 </select>
             </Grid>
             <Grid item xs={5}>

@@ -16,4 +16,10 @@ export default class OrderStore {
                 return Promise.reject()
             })
     }
+
+    getOrderTypes() {
+        return OrderService.getOrderTypes()
+            .then(r => Promise.resolve(r))
+            .catch(() => Promise.reject())
+    }
 }

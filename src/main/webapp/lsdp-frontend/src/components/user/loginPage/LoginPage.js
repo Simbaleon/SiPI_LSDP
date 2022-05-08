@@ -12,8 +12,6 @@ const LoginPage = observer(() => {
     const {userStore} = useContext(Context)
     const navigate = useNavigate();
 
-    console.log("login render")
-
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -29,7 +27,6 @@ const LoginPage = observer(() => {
                 .min(8, "Пароль должен содержать не меньше 8 символов")
         }),
         onSubmit: (values => {
-            console.log(values.email, values.password)
             userStore?.login(values.email, values.password)
                 .then(() => {
                     SnackbarConstructor("alertAfterLogin", "success", "Успешная авторизация")

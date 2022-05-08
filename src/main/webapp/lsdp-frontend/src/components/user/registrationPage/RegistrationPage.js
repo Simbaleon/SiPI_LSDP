@@ -26,8 +26,6 @@ const RegistrationPage = observer(() => {
     const {userStore} = useContext(Context)
     const navigate = useNavigate();
 
-    console.log("registration render")
-
     const formik = useFormik({
         initialValues: {
             fullName: "",

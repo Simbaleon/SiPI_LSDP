@@ -34,8 +34,6 @@ const Header = observer(() => {
     const {userStore} = useContext(Context)
     const navigate = useNavigate()
 
-    console.log("header render")
-
     return (
         <header>
             <AppBar position={"static"} className={header}>
