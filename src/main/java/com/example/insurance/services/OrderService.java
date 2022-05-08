@@ -4,7 +4,9 @@ import com.example.insurance.data.entities.Order;
 import com.example.insurance.data.repositories.OrderRepository;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,16 +28,16 @@ public class OrderService {
      * Create order.
      *
      * @param orderInputDTO the order input dto
-     * @param user          the user
      */
-    public void createOrder(CreateOrderInputDTO orderInputDTO, User user) {
+    public void createOrder(CreateOrderInputDTO orderInputDTO) {
         Order order = new Order();
         order.setSubject(orderInputDTO.getSubject());
         order.setDescription(orderInputDTO.getDescription());
         order.setType(orderInputDTO.getOrderType());
         order.setDeadline(orderInputDTO.getDeadline());
         order.setPrice(orderInputDTO.getPrice());
-        order.setAuthorUser(userService.getUserEntityByEmail(user.getUsername()));
+        UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        order.setAuthorUser(userService.getUserEntityByEmail(currentUser.getUsername()));
         orderRepository.save(order);
     }
 

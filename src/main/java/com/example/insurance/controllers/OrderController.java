@@ -31,12 +31,11 @@ public class OrderController {
      * Create order response entity.
      *
      * @param order the order
-     * @param user  the user
      * @return the response entity
      */
     @PostMapping("/create")
-    public ResponseEntity<Void> createOrder(@RequestBody CreateOrderInputDTO order, @AuthenticationPrincipal User user) {
-        orderService.createOrder(order, user);
+    public ResponseEntity<Void> createOrder(@RequestBody CreateOrderInputDTO order) {
+        orderService.createOrder(order);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
