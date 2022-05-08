@@ -36,7 +36,7 @@ public class OrderController {
      */
     @PostMapping("/create")
     public ResponseEntity<Void> createOrder(@RequestBody CreateOrderInputDTO order, @AuthenticationPrincipal UserEntity user) {
-        orderService.createOrder(order);
+        orderService.createOrder(order, user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

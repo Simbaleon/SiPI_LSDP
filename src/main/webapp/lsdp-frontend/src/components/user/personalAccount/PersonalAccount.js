@@ -6,6 +6,7 @@ const PersonalAccount = observer(() => {
     const navigate = useNavigate()
     return (
         <div>
+            <div id={"alertAfterCreatingOrder"} />
             <p>Здесь будет располагаться инфа о пользователе</p>
             <h3>Заказы</h3>
             <Button onClick={() => navigate("/orders/create")}>

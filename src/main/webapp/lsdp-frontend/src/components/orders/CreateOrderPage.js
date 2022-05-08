@@ -13,11 +13,20 @@ const CreateOrderPage = observer(() => {
     const navigate = useNavigate()
     const [orderTypes, setOrders] = useState([])
 
+    useEffect(() => {
+            orderStore.getOrderTypes().then(r => {
+                const types = r.data;
+                setOrders(types)
+            })
+        }, []
+    )
+    console.log(orderTypes[0])
+
     const formik = useFormik({
         initialValues: {
             subject: "",
             description: "",
-            orderType: orderTypes[0],
+            orderType: "Тексты",  //Пока что захардкодил, потому что не знаю, как решить
             deadline: new Date(),
             price: ""
         },
@@ -32,26 +41,17 @@ const CreateOrderPage = observer(() => {
                 .required("Это поле обязательно"),
             price: yup.number()
                 .min(100, "Стоимость выполнения работы не может быть меньше 100 руб.")
-                .required("Это поле обязательно") //оно итак всегда будет заполнено))))
+                .required("Это поле обязательно")
         }),
         onSubmit: (values => {
-            console.log('type' + values.orderType)
+            // console.log('type' + values.orderType)
             orderStore?.createOrder(values.subject, values.description, values.orderType, new Date(values.deadline), values.price)
                 .then(() => {
                     SnackbarConstructor("alertAfterCreatingOrder", "success", "Заказ успешно создан")
                     navigate("/personalAccount")
-                })
+                }).catch(e => SnackbarConstructor("alertAfterCreatingOrder", "error", "Что-то пошло не так"))
         })
     })
-
-
-    useEffect(() => {
-            orderStore.getOrderTypes().then(r => {
-                const types = r.data;
-                setOrders(types)
-            })
-        }, []
-    )
 
     return (
         <Grid
@@ -93,12 +93,12 @@ const CreateOrderPage = observer(() => {
                     id={"orderType"}
                     name={"orderType"}
                     value={formik.values.orderType}
-                    error={formik.errors.orderType != null}
+                    // error={formik.errors.orderType != null}
                     onChange={formik.handleChange}
                 >
                     {
                         orderTypes.map(x => {
-                            return <option key={x}>{x}</option>
+                            return <option key={x} value={x}>{x}</option>
                         })
                     }
                 </select>

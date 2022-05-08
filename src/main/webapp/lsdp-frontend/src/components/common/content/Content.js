@@ -1,6 +1,6 @@
 import s from "./Content.module.css";
 import {Route, Routes,} from "react-router-dom";
-import AllOrders from "../../orders/Orders";
+import AllOrders from "../../orders/AllOrders";
 import PersonalAccount from "../../user/personalAccount/PersonalAccount";
 import LoginPage from "../../user/loginPage/LoginPage";
 import RegistrationPage from "../../user/registrationPage/RegistrationPage";

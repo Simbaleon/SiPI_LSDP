@@ -1,13 +1,11 @@
 package com.example.insurance.services;
 
 import com.example.insurance.data.entities.Order;
+import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.repositories.OrderRepository;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -30,15 +28,14 @@ public class OrderService {
      *
      * @param orderInputDTO the order input dto
      */
-    public void createOrder(CreateOrderInputDTO orderInputDTO) {
-        Order order = new Order();
-//        order.setSubject(orderInputDTO.getSubject());
-//        order.setDescription(orderInputDTO.getDescription());
-//        order.setType(OrderType.getByUIValue(orderInputDTO.getOrderType()).get());
-//        order.setDeadline(orderInputDTO.getDeadline());
-//        order.setPrice(orderInputDTO.getPrice());
-//        UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        order.setAuthorUser(userService.getUserEntityByEmail(currentUser.getUsername()));
+    public void createOrder(CreateOrderInputDTO orderInputDTO, UserEntity user) {
+        Order order = new Order()
+                .setType(OrderType.getByUIValue(orderInputDTO.getOrderType()).get())
+                .setSubject(orderInputDTO.getSubject())
+                .setDescription(orderInputDTO.getDescription())
+                .setDeadline(orderInputDTO.getDeadline())
+                .setPrice(orderInputDTO.getPrice())
+                .setAuthorUser(user);
         orderRepository.save(order);
     }
 

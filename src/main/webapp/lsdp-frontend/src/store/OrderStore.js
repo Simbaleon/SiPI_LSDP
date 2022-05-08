@@ -10,7 +10,6 @@ export default class OrderStore {
     createOrder(subject, description, orderType, deadline, price) {
         return OrderService.createOrder(subject, description, orderType, deadline, price)
             .then((response) => {
-                console.log("Заказ создан")
                 return Promise.resolve(response)
             }).catch(() => {
                 return Promise.reject()

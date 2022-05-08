@@ -1,6 +1,5 @@
 import {makeAutoObservable} from "mobx";
 import AuthService from "../services/AuthService";
-import SnackbarConstructor from "../components/common/snackbarConstructor/SnackbarConstructor";
 
 
 export default class UserStore {
@@ -44,15 +43,10 @@ export default class UserStore {
     registration(fullName, email, telephoneNumber, password, role) {
         return AuthService.registration(fullName, email, telephoneNumber, password, role)
             .then(response => {
-                // if (response.status === 201) {
-                //     SnackbarConstructor("alertAfterRegistration", "success", "Успешная регистрация")
-                // }
                 return Promise.resolve(response)
             })
             .catch((err) => {
                 return Promise.reject()
-                // console.log(err)
-                // SnackbarConstructor("alertAfterRegistration", "error", "Пользователь с таким email уже существует")
             })
     }
 
