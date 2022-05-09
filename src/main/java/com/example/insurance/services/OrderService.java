@@ -2,6 +2,7 @@ package com.example.insurance.services;
 
 import com.example.insurance.data.entities.Order;
 import com.example.insurance.data.entities.UserEntity;
+import com.example.insurance.data.enumerations.OrderStatus;
 import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.repositories.OrderRepository;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
@@ -35,7 +36,8 @@ public class OrderService {
                 .setDescription(orderInputDTO.getDescription())
                 .setDeadline(orderInputDTO.getDeadline())
                 .setPrice(orderInputDTO.getPrice())
-                .setAuthorUser(user);
+                .setAuthorUser(user)
+                .setStatus(OrderStatus.WAITING_FOR_RESPONSES);
         orderRepository.save(order);
     }
 
@@ -45,7 +47,7 @@ public class OrderService {
      * @return the all orders
      */
     public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+        return orderRepository.findAllByStatus(OrderStatus.WAITING_FOR_RESPONSES);
     }
 
     /**
@@ -56,8 +58,8 @@ public class OrderService {
      */
     public Map<String, List<Order>> getOrdersByUserId(Long id) {
         Map<String, List<Order>> orderMap = new HashMap<>();
-        orderMap.put("executor", orderRepository.findAllByExecutorUserId(id));
-        orderMap.put("author", orderRepository.findAllByAuthorUserId(id));
+        orderMap.put("executor", orderRepository.findAllByExecutorUserIdAndStatusIsNot(id, OrderStatus.COMPLETED));
+        orderMap.put("author", orderRepository.findAllByAuthorUserIdAndStatusIsNot(id, OrderStatus.COMPLETED));
         return orderMap;
     }
 }

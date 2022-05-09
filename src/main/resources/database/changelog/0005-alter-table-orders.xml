@@ -10,4 +10,10 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="add status column to order table" author="akanenkov">
+        <addColumn tableName="orders">
+            <column name="status" type="varchar" remarks="статус заказа"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,6 +1,7 @@
 package com.example.insurance.data.repositories;
 
 import com.example.insurance.data.entities.Order;
+import com.example.insurance.data.enumerations.OrderStatus;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -27,4 +28,31 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * @return the list
      */
     List<Order> findAllByExecutorUserId(@NonNull Long id);
+
+
+    /**
+     * Find all by author user id and status is not list.
+     *
+     * @param id          the id
+     * @param orderStatus the order status
+     * @return the list
+     */
+    List<Order> findAllByAuthorUserIdAndStatusIsNot(@NonNull Long id, @NonNull OrderStatus orderStatus);
+
+    /**
+     * Find all by executor user id and status is not list.
+     *
+     * @param id          the id
+     * @param orderStatus the order status
+     * @return the list
+     */
+    List<Order> findAllByExecutorUserIdAndStatusIsNot(@NonNull Long id, @NonNull OrderStatus orderStatus);
+
+    /**
+     * Find all by status list.
+     *
+     * @param orderStatus the order status
+     * @return the list
+     */
+    List<Order> findAllByStatus(@NonNull OrderStatus orderStatus);
 }

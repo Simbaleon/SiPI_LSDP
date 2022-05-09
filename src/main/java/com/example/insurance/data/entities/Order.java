@@ -1,5 +1,6 @@
 package com.example.insurance.data.entities;
 
+import com.example.insurance.data.enumerations.OrderStatus;
 import com.example.insurance.data.enumerations.OrderType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,5 +36,8 @@ public class Order extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "EXECUTOR_USER_ID")
 	private UserEntity executorUser;
+
+	@Enumerated(EnumType.STRING)
+	private OrderStatus status;
 
 }
