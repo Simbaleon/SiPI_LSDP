@@ -100,6 +100,7 @@ public class RefreshTokenProvider {
             String token = jwtTokenProvider.createJWTToken(userEntity.getEmail(), authorities);
             response.addHeader(HEADER_ACCESS_TOKEN, TOKEN_PREFIX + token);
             response.addHeader(HEADER_REFRESH_TOKEN, refreshToken.getToken());
+            response.addHeader("Access-Control-Expose-Headers", HEADER_ACCESS_TOKEN + "," + HEADER_REFRESH_TOKEN);
             return token;
         }
         return null;
