@@ -4,11 +4,16 @@ import AuthService from "../services/AuthService";
 
 export default class UserStore {
 
+    user = ""
     userRole = []
     isAuth = false
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    setUser(user) {
+        this.user = user
     }
 
     setAuth(bool) {
@@ -33,7 +38,10 @@ export default class UserStore {
                 localStorage.setItem("accesstoken", response.headers.accesstoken)
                 localStorage.setItem("refreshtoken", response.headers.refreshtoken)
                 this.setAuth(true)
+                this.setUser(response.data.username)
+                console.log(response.data.username)
                 this.setUserRole(response.data.role)
+                console.log(response.data.role)
                 return Promise.resolve(response)
             }).catch(() => {
                 return Promise.reject()

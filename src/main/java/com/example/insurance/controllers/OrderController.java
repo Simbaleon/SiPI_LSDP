@@ -1,6 +1,5 @@
 package com.example.insurance.controllers;
 
-import com.example.insurance.data.entities.Order;
 import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
@@ -64,12 +63,12 @@ public class OrderController {
     /**
      * Gets orders by user id.
      *
-     * @param id the id
+     * @param username the username
      * @return the orders by user id
      */
-    @GetMapping("/getAllByUserId")
-    public ResponseEntity<Map<String, List<Order>>> getAllOrdersByUserId(@RequestParam Long id) {
-        return ResponseEntity.ok(orderService.getOrdersByUserId(id));
+    @GetMapping("/getAllByUsername")
+    public ResponseEntity<Map<String, List<OrderDTO>>> getAllOrdersByUsername(@RequestParam String username) {
+        return ResponseEntity.ok(orderService.getOrdersByUsername(username));
     }
 
 }

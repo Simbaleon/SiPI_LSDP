@@ -1,5 +1,6 @@
 package com.example.insurance.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "executorsResponses")
     private Set<Order> orderResponses;
 

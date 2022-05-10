@@ -33,20 +33,20 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     /**
      * Find all by author user id and status is not list.
      *
-     * @param id          the id
+     * @param email       the email
      * @param orderStatus the order status
      * @return the list
      */
-    List<Order> findAllByAuthorUserIdAndStatusIsNot(@NonNull Long id, @NonNull OrderStatus orderStatus);
+    List<Order> findAllByAuthorUserEmailAndStatusIsNot(@NonNull String email, @NonNull OrderStatus orderStatus);
 
     /**
      * Find all by executor user id and status is not list.
      *
-     * @param id          the id
+     * @param email       the email
      * @param orderStatus the order status
      * @return the list
      */
-    List<Order> findAllByExecutorUserIdAndStatusIsNot(@NonNull Long id, @NonNull OrderStatus orderStatus);
+    List<Order> findAllByExecutorUserEmailAndStatusIsNot(@NonNull String email, @NonNull OrderStatus orderStatus);
 
     /**
      * Find all by status list.

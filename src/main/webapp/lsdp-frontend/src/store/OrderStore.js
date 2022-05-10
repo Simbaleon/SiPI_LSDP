@@ -28,8 +28,8 @@ export default class OrderStore {
             .catch(() => Promise.reject())
     }
 
-    getAllOrdersByUserId(userId) {
-        return OrderService.getAllOrdersByUserId(userId)
+    getAllOrdersByUsername(username) {
+        return OrderService.getAllOrdersByUserId(username)
             .then(r => Promise.resolve(r))
             .catch(() => Promise.reject())
     }

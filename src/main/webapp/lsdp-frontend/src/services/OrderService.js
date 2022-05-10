@@ -14,7 +14,7 @@ export default class OrderService {
         return $api.get("/orders/getAll")
     }
 
-    static getAllOrdersByUserId(userId) {
-        return $api.get("/orders/getAllByUserId", {params: {id: userId}})
+    static getAllOrdersByUserId(email) {
+        return $api.get("/orders/getAllByUsername", {params: {username: email}})
     }
 }

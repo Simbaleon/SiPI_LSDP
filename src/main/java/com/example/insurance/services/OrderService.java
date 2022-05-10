@@ -30,6 +30,7 @@ public class OrderService {
      * Create order.
      *
      * @param orderInputDTO the order input dto
+     * @param user          the user
      */
     public void createOrder(CreateOrderInputDTO orderInputDTO, UserEntity user) {
         Order order = new Order()
@@ -56,13 +57,17 @@ public class OrderService {
     /**
      * Gets orders by user id.
      *
-     * @param id the id
+     * @param email the email
      * @return the orders by user id
      */
-    public Map<String, List<Order>> getOrdersByUserId(Long id) {
-        Map<String, List<Order>> orderMap = new HashMap<>();
-        orderMap.put("executor", orderRepository.findAllByExecutorUserIdAndStatusIsNot(id, OrderStatus.COMPLETED));
-        orderMap.put("author", orderRepository.findAllByAuthorUserIdAndStatusIsNot(id, OrderStatus.COMPLETED));
+    public Map<String, List<OrderDTO>> getOrdersByUsername(String email) {
+        Map<String, List<OrderDTO>> orderMap = new HashMap<>();
+        List<OrderDTO> executorOrdersList = orderRepository.findAllByExecutorUserEmailAndStatusIsNot(email, OrderStatus.COMPLETED)
+                .stream().map(OrderDTO::copyEntityToDTO).collect(Collectors.toList());
+        List<OrderDTO> authorOrderList = orderRepository.findAllByAuthorUserEmailAndStatusIsNot(email, OrderStatus.COMPLETED)
+                        .stream().map(OrderDTO::copyEntityToDTO).collect(Collectors.toList());
+        orderMap.put("executor", executorOrdersList);
+        orderMap.put("author", authorOrderList);
         return orderMap;
     }
 }
