@@ -33,6 +33,8 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     private String password;
 
+    private String description;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)

@@ -1,5 +1,6 @@
 import {makeAutoObservable} from "mobx";
 import AuthService from "../services/AuthService";
+import UserService from "../services/UserService";
 
 
 export default class UserStore {
@@ -63,6 +64,12 @@ export default class UserStore {
         localStorage.removeItem("refreshtoken")
         this.setAuth(false)
         this.setUserRole([])
+    }
+
+    getUserInfo(username) {
+        return UserService.getUserInfo(username)
+            .then(r => Promise.resolve(r))
+            .catch(() => Promise.reject())
     }
 
 }

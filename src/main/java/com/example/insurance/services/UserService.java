@@ -2,6 +2,7 @@ package com.example.insurance.services;
 
 import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.requestdto.UserRegistrationInputDTO;
+import com.example.insurance.data.responsedto.UserDTO;
 import com.example.insurance.exceptions.UserNotFoundException;
 import com.example.insurance.data.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -61,15 +62,15 @@ public class UserService {
     /**
      * Gets user.
      *
-     * @param id the id
+     * @param email the email
      * @return the user
      */
-    public UserEntity getUser(Long id) {
-        UserEntity userEntity = userRepository.findUserById(id);
+    public UserDTO getUserByUsername(String email) {
+        UserEntity userEntity = userRepository.findByEmail(email).orElse(null);
         if (userEntity == null)
             throw new UserNotFoundException();
         else
-            return userEntity;
+            return UserDTO.copyEntityToDTO(userEntity);
     }
 
     /**

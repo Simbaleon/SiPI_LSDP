@@ -16,4 +16,10 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="add description column to users table" author="akanenkov">
+        <addColumn tableName="users">
+            <column name="description" type="VARCHAR(2048)" remarks="информация о пользователе"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

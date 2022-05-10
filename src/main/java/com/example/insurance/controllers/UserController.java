@@ -2,6 +2,7 @@ package com.example.insurance.controllers;
 
 import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.requestdto.UserRegistrationInputDTO;
+import com.example.insurance.data.responsedto.UserDTO;
 import com.example.insurance.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class UserController {
      * Registration.
      *
      * @param userRegistrationInputDTO the user registration input
+     * @return the response entity
      */
     @PostMapping("/registration")
     public ResponseEntity<Void> registration(@RequestBody UserRegistrationInputDTO userRegistrationInputDTO) {
@@ -38,13 +40,13 @@ public class UserController {
     /**
      * Gets user.
      *
-     * @param id the id
+     * @param username the username
      * @return the user
      */
-    @GetMapping("/{id}")
+    @GetMapping("/getUserByUsername")
     @ResponseStatus(HttpStatus.OK)
-    public UserEntity getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+    public ResponseEntity<UserDTO> getUserByUsername(@RequestParam String username) {
+        return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 
     /**

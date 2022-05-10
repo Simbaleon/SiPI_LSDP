@@ -1,16 +1,16 @@
 import {observer} from "mobx-react-lite";
-import {Button} from "@mui/material";
+import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router";
+import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {Context} from "../../../index";
 import {DataGrid, GridColDef, GridToolbar, ruRU} from "@mui/x-data-grid";
-import * as React from "react";
 
 const columns: GridColDef[] = [
-    {field: 'subject', headerName: 'Тема', width: 300},
-    {field: 'type', headerName: 'Тип заказа', width: 300},
-    {field: 'status', headerName: 'Статус заказа', width: 300},
-    {field: 'deadline', headerName: 'Срок сдачи', width: 300, type: "date"},
+    {field: 'subject', headerName: 'Тема', width: 360},
+    {field: 'type', headerName: 'Тип заказа', width: 230},
+    {field: 'status', headerName: 'Статус заказа', width: 230},
+    {field: 'deadline', headerName: 'Срок сдачи', width: 230, type: "date"},
     {field: 'price', headerName: 'Стоимость', type: 'number', width: 220}
 ]
 
@@ -19,18 +19,45 @@ const PersonalAccount = observer(() => {
     const {orderStore, userStore} = useContext(Context)
     const [executorRows, setExecutorRows] = useState([])
     const [authorRows, setAuthorRows] = useState([])
+    const [user, setUser] = useState({})
 
     useEffect(() => {
-            orderStore.getAllOrdersByUsername(userStore.user).then(r => {
-                setExecutorRows(r.data.executor)
-                setAuthorRows(r.data.author)
+            orderStore.getAllOrdersByUsername(userStore.user)
+                .then(r => {
+                    setExecutorRows(r.data.executor)
+                    setAuthorRows(r.data.author)
+                })
+            userStore.getUserInfo(userStore.user).then(r => {
+                setUser(r.data)
             })
         }, []
     )
 
     return (
-        <div style={{height: '100%', width: '100%'}}>
-            <div id={"alertAfterCreatingOrder"} />
+        <div style={{height: '100%', width: '90%', margin: 'auto'}}>
+            <Card style={{marginTop: "20px"}} variant={"outlined"}>
+                <CardContent>
+                    <Typography>
+                        <p><h3>{user.fullName}</h3></p>
+                    </Typography>
+                    <Typography>
+                        <p><b>Эл. почта:</b> {user.email}</p>
+                    </Typography>
+                    <Typography>
+                        <p><b>Номер телефона:</b> {user.telephoneNumber}</p>
+                    </Typography>
+                    <Typography>
+                        <p><b>Описание:</b> {user.description}</p>
+                    </Typography>
+                    <CardActions>
+                        <Button color={"inherit"} variant={"outlined"}>
+                            Редактировать
+                        </Button>
+                    </CardActions>
+                </CardContent>
+            </Card>
+
+            <div id={"alertAfterCreatingOrder"}/>
 
             <h2>Заказы</h2>
             <Button color={"inherit"} variant={"outlined"} onClick={() => navigate("/orders/create")}>
@@ -66,7 +93,7 @@ const PersonalAccount = observer(() => {
                             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                         />
                     </div>
-                : <div>Нет заказов в работе</div>
+                    : <div>Нет заказов в работе</div>
             )}
         </div>
     )
