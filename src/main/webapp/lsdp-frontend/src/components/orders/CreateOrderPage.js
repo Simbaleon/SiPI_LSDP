@@ -20,7 +20,6 @@ const CreateOrderPage = observer(() => {
             })
         }, []
     )
-    console.log(orderTypes[0])
 
     const formik = useFormik({
         initialValues: {

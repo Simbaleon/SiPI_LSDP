@@ -21,4 +21,16 @@ export default class OrderStore {
             .then(r => Promise.resolve(r))
             .catch(() => Promise.reject())
     }
+
+    getAllOrders() {
+        return OrderService.getAllOrders()
+            .then(r => Promise.resolve(r))
+            .catch(() => Promise.reject())
+    }
+
+    getAllOrdersByUserId(userId) {
+        return OrderService.getAllOrdersByUserId(userId)
+            .then(r => Promise.resolve(r))
+            .catch(() => Promise.reject())
+    }
 }

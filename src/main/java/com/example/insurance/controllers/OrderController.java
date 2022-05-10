@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +54,7 @@ public class OrderController {
      *
      * @return the all orders
      */
-    @GetMapping("/getAllOrders")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Order>> getAllOrders() {
         return ResponseEntity.ok(orderService.getAllOrders());
     }
@@ -66,8 +65,8 @@ public class OrderController {
      * @param id the id
      * @return the orders by user id
      */
-    @GetMapping("/getOrdersByUserId")
-    public ResponseEntity<Map<String, List<Order>>> getOrdersByUserId(@RequestParam Long id) {
+    @GetMapping("/getAllByUserId")
+    public ResponseEntity<Map<String, List<Order>>> getAllOrdersByUserId(@RequestParam Long id) {
         return ResponseEntity.ok(orderService.getOrdersByUserId(id));
     }
 

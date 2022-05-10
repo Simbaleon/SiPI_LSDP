@@ -9,4 +9,12 @@ export default class OrderService {
     static getOrderTypes() {
         return $api.get("/orders/getTypes")
     }
+
+    static getAllOrders() {
+        return $api.get("/orders/getAll")
+    }
+
+    static getAllOrdersByUserId(userId) {
+        return $api.get("/orders/getAllByUserId", {params: {id: userId}})
+    }
 }
