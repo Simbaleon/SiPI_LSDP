@@ -37,6 +37,9 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @ManyToMany(mappedBy = "executorsResponses")
+    private Set<Order> orderResponses;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

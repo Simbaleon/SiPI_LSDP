@@ -1,0 +1,18 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+                   logicalFilePath="/database/changelog/0006-add-order-responses.xml">
+
+    <changeSet id="add order responses" author="akanenkov">
+        <createTable tableName="order_responses">
+            <column name="order_id" type="NUMBER(19,0)" remarks="id заказа">
+                <constraints nullable="false" foreignKeyName="ORDER_RESPONSES_ORDER_ID" references="ORDERS(ID)"/>
+            </column>
+            <column name="user_id" type="NUMBER(19,0)" remarks="id пользователя">
+                <constraints nullable="false" foreignKeyName="ORDER_RESPONSES_USER_ID" references="USERS(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

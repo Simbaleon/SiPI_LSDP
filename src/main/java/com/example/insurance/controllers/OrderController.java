@@ -4,6 +4,7 @@ import com.example.insurance.data.entities.Order;
 import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
+import com.example.insurance.data.responsedto.OrderDTO;
 import com.example.insurance.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,7 @@ public class OrderController {
      * Create order response entity.
      *
      * @param order the order
+     * @param user  the user
      * @return the response entity
      */
     @PostMapping("/create")
@@ -55,7 +57,7 @@ public class OrderController {
      * @return the all orders
      */
     @GetMapping("/getAll")
-    public ResponseEntity<List<Order>> getAllOrders() {
+    public ResponseEntity<List<OrderDTO>> getAllOrders() {
         return ResponseEntity.ok(orderService.getAllOrders());
     }
 

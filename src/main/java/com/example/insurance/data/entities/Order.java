@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -39,5 +40,13 @@ public class Order extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
+
+	@ManyToMany
+	@JoinTable(
+			name = "order_responses",
+			joinColumns = @JoinColumn(name = "order_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+	)
+	private Set<UserEntity> executorsResponses;
 
 }

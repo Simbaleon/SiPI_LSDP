@@ -6,12 +6,14 @@ import com.example.insurance.data.enumerations.OrderStatus;
 import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.repositories.OrderRepository;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
+import com.example.insurance.data.responsedto.OrderDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * The type Order service.
@@ -46,8 +48,9 @@ public class OrderService {
      *
      * @return the all orders
      */
-    public List<Order> getAllOrders() {
-        return orderRepository.findAllByStatus(OrderStatus.WAITING_FOR_RESPONSES);
+    public List<OrderDTO> getAllOrders() {
+        return orderRepository.findAllByStatus(OrderStatus.WAITING_FOR_RESPONSES)
+                .stream().map(OrderDTO::copyEntityToDTO).collect(Collectors.toList());
     }
 
     /**
