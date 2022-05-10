@@ -4,20 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class CreateOrderInputDTO {
+public class ChangeUserDescriptionInputDTO {
 
-    private String subject;
+    private String username;
 
     private String description;
 
-    private String orderType;
-
-    private LocalDateTime deadline;
-
-    private Double price;
 }

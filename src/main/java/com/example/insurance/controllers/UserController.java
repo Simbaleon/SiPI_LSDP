@@ -1,6 +1,7 @@
 package com.example.insurance.controllers;
 
 import com.example.insurance.data.entities.UserEntity;
+import com.example.insurance.data.requestdto.ChangeUserDescriptionInputDTO;
 import com.example.insurance.data.requestdto.UserRegistrationInputDTO;
 import com.example.insurance.data.responsedto.UserDTO;
 import com.example.insurance.services.UserService;
@@ -63,15 +64,13 @@ public class UserController {
     /**
      * Edit user entity.
      *
-     * @param id         the id
-     * @param userEntity the user entity
+     * @param dto the dto
      * @return the user entity
      */
-    @PutMapping("/edit/{id}")
+    @PatchMapping("/changeUserDescription")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserEntity editUser(@PathVariable Long id,
-                               @RequestBody UserEntity userEntity) {
-        return userService.editUser(id, userEntity);
+    public void changeUserDescription(@RequestBody ChangeUserDescriptionInputDTO dto) {
+        userService.changeUserDescription(dto);
     }
 
     /**

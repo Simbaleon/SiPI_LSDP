@@ -1,6 +1,7 @@
 package com.example.insurance.services;
 
 import com.example.insurance.data.entities.UserEntity;
+import com.example.insurance.data.requestdto.ChangeUserDescriptionInputDTO;
 import com.example.insurance.data.requestdto.UserRegistrationInputDTO;
 import com.example.insurance.data.responsedto.UserDTO;
 import com.example.insurance.exceptions.UserNotFoundException;
@@ -110,5 +111,12 @@ public class UserService {
         if (userRepository.findUserById(id) == null)
             throw new UserNotFoundException();
         userRepository.deleteById(id);
+    }
+
+    public void changeUserDescription(ChangeUserDescriptionInputDTO dto) {
+        userRepository.findByEmail(dto.getUsername())
+                .map(u -> u.setDescription(dto.getDescription()))
+                .map(userRepository::save)
+                .orElseThrow(UserNotFoundException::new);
     }
 }

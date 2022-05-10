@@ -1,6 +1,7 @@
 import {makeAutoObservable} from "mobx";
 import AuthService from "../services/AuthService";
 import UserService from "../services/UserService";
+import SnackbarConstructor from "../components/common/snackbarConstructor/SnackbarConstructor";
 
 
 export default class UserStore {
@@ -68,6 +69,12 @@ export default class UserStore {
 
     getUserInfo(username) {
         return UserService.getUserInfo(username)
+            .then(r => Promise.resolve(r))
+            .catch(() => Promise.reject())
+    }
+
+    changeUserDescription(username, description) {
+        return UserService.changeUserDescription(username, description)
             .then(r => Promise.resolve(r))
             .catch(() => Promise.reject())
     }

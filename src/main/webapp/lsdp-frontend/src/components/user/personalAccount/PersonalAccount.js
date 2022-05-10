@@ -1,10 +1,23 @@
 import {observer} from "mobx-react-lite";
-import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
+import {Box, Button, Card, CardActions, CardContent, Modal, TextField, Typography} from "@mui/material";
 import {useNavigate} from "react-router";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {Context} from "../../../index";
 import {DataGrid, GridColDef, GridToolbar, ruRU} from "@mui/x-data-grid";
+import SnackbarConstructor from "../../common/snackbarConstructor/SnackbarConstructor";
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 1000,
+    bgcolor: 'background.paper',
+    borderRadius: "6px",
+    boxShadow: 24,
+    p: 4,
+};
 
 const columns: GridColDef[] = [
     {field: 'subject', headerName: 'Тема', width: 360},
@@ -20,6 +33,9 @@ const PersonalAccount = observer(() => {
     const [executorRows, setExecutorRows] = useState([])
     const [authorRows, setAuthorRows] = useState([])
     const [user, setUser] = useState({})
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
             orderStore.getAllOrdersByUsername(userStore.user)
@@ -50,12 +66,43 @@ const PersonalAccount = observer(() => {
                         <p><b>Описание:</b> {user.description}</p>
                     </Typography>
                     <CardActions>
-                        <Button color={"inherit"} variant={"outlined"}>
+                        <Button color={"inherit"} variant={"outlined"} onClick={handleOpen}>
                             Редактировать
                         </Button>
                     </CardActions>
                 </CardContent>
             </Card>
+            <div id={"alertAfterChangingDescription"}/>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <TextField
+                        id="changeDescriptionTextField"
+                        name="description"
+                        label="Описание"
+                        type={"text"}
+                        defaultValue={user.description}
+                        fullWidth={true}
+                        rows={16}
+                        multiline
+                    />
+                    <Button style={{marginTop: "10px", margin: "auto"}} color={"inherit"} variant={"outlined"}
+                            onClick={() => {
+                                const newValue = document.getElementById("changeDescriptionTextField").value
+                                userStore.changeUserDescription(userStore.user, newValue)
+                                    .then(r => {
+                                        user.description = newValue
+                                        handleClose()
+                                    }).catch(() => SnackbarConstructor("alertAfterChangingDescription", "error", "Не удалось сохранить изменения, попробуйте ещё раз"))
+                            }}>
+                        Сохранить
+                    </Button>
+                </Box>
+            </Modal>
 
             <div id={"alertAfterCreatingOrder"}/>
 

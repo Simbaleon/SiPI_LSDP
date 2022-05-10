@@ -6,4 +6,8 @@ export default class UserService {
         return $api.get("/clients/getUserByUsername", {params: {username: email}})
     }
 
+    static changeUserDescription(username, description) {
+        return $api.patch("/clients/changeUserDescription", {username, description})
+    }
+
 }

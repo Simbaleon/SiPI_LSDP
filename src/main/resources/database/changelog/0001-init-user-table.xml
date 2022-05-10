@@ -18,7 +18,7 @@
 
     <changeSet id="add description column to users table" author="akanenkov">
         <addColumn tableName="users">
-            <column name="description" type="VARCHAR(2048)" remarks="информация о пользователе"/>
+            <column name="description" type="varchar" remarks="информация о пользователе"/>
         </addColumn>
     </changeSet>
 
