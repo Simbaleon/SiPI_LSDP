@@ -13,4 +13,13 @@ $api.interceptors.request.use((config) => {
     return config
 })
 
+$api.interceptors.response.use((response) => {
+    if (response.headers.refreshtoken && response.headers.accesstoken) {
+        console.log("accesstoken and refreshtoken gotten")
+        localStorage.setItem("accesstoken", response.headers.accesstoken)
+        localStorage.setItem("refreshtoken", response.headers.refreshtoken)
+    }
+    return response
+})
+
 export default $api;
