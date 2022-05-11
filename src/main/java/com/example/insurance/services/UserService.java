@@ -113,6 +113,11 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    /**
+     * Change user description.
+     *
+     * @param dto the dto
+     */
     public void changeUserDescription(ChangeUserDescriptionInputDTO dto) {
         userRepository.findByEmail(dto.getUsername())
                 .map(u -> u.setDescription(dto.getDescription()))

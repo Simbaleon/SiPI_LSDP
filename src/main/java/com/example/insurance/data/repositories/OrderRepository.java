@@ -3,7 +3,9 @@ package com.example.insurance.data.repositories;
 import com.example.insurance.data.entities.Order;
 import com.example.insurance.data.enumerations.OrderStatus;
 import lombok.NonNull;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
 /**
  * The interface Order repository.
  */
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface OrderRepository extends PagingAndSortingRepository<Order, Long> {
 
     /**
      * Find all by author user id list.
@@ -51,8 +53,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     /**
      * Find all by status list.
      *
+     * @param pageable    the pageable
      * @param orderStatus the order status
      * @return the list
      */
-    List<Order> findAllByStatus(@NonNull OrderStatus orderStatus);
+    Page<Order> findAllByStatus(@NonNull Pageable pageable, @NonNull OrderStatus orderStatus);
 }

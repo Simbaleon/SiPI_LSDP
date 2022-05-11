@@ -8,8 +8,12 @@ import com.example.insurance.data.repositories.OrderRepository;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import com.example.insurance.data.responsedto.OrderDTO;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,11 +51,11 @@ public class OrderService {
     /**
      * Gets all orders.
      *
+     * @param pageable the pageable
      * @return the all orders
      */
-    public List<OrderDTO> getAllOrders() {
-        return orderRepository.findAllByStatus(OrderStatus.WAITING_FOR_RESPONSES)
-                .stream().map(OrderDTO::copyEntityToDTO).collect(Collectors.toList());
+    public Page<OrderDTO> getAllOrders(Pageable pageable) {
+        return orderRepository.findAllByStatus(pageable, OrderStatus.WAITING_FOR_RESPONSES).map(OrderDTO::copyEntityToDTO);
     }
 
     /**

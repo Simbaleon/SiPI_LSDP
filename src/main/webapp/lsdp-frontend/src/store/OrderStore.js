@@ -22,8 +22,8 @@ export default class OrderStore {
             .catch(() => Promise.reject())
     }
 
-    getAllOrders() {
-        return OrderService.getAllOrders()
+    getAllOrders(page, size) {
+        return OrderService.getAllOrders(page, size)
             .then(r => Promise.resolve(r))
             .catch(() => Promise.reject())
     }

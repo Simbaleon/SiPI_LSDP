@@ -6,6 +6,8 @@ import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import com.example.insurance.data.responsedto.OrderDTO;
 import com.example.insurance.services.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -53,11 +55,12 @@ public class OrderController {
     /**
      * Gets all orders.
      *
+     * @param pageable the pageable
      * @return the all orders
      */
     @GetMapping("/getAll")
-    public ResponseEntity<List<OrderDTO>> getAllOrders() {
-        return ResponseEntity.ok(orderService.getAllOrders());
+    public ResponseEntity<Page<OrderDTO>> getAllOrders(Pageable pageable) {
+        return ResponseEntity.ok(orderService.getAllOrders(pageable));
     }
 
     /**

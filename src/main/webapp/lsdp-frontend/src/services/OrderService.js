@@ -10,8 +10,8 @@ export default class OrderService {
         return $api.get("/orders/getTypes")
     }
 
-    static getAllOrders() {
-        return $api.get("/orders/getAll")
+    static getAllOrders(pageN, sizeN) {
+        return $api.get("/orders/getAll", {params: {page: pageN, size: sizeN}})
     }
 
     static getAllOrdersByUserId(email) {
