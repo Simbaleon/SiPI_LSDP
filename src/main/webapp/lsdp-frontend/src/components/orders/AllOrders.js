@@ -62,7 +62,7 @@ const AllOrders = observer(() => {
                     <p><h2>{currentOrder.subject}</h2></p>
                     <p><b>Категория:</b> {currentOrder.type}</p>
                     <p><b>Срок сдачи:</b> {currentOrder.deadline}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <b>Стоимость:</b> {currentOrder.price}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <b>Стоимость:</b> {currentOrder.price}&#x20bd;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <b>Количество откликов:</b> {currentOrder.responsesCount}</p>
                     <TextField
                         id="descriptionTextField"
@@ -94,7 +94,7 @@ const AllOrders = observer(() => {
                                 </Typography>
                                 <Typography>
                                     <p><b>Срок сдачи:</b> {order.deadline}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <b>Стоимость:</b> {order.price}</p>
+                                        <b>Стоимость:</b> {order.price}&#x20bd;</p>
                                 </Typography>
                             </CardContent>
                         </Grid>
