@@ -20,6 +20,10 @@ public class OrderDTO {
 
     private String status;
 
+    private String description;
+
+    private int responsesCount;
+
     static public OrderDTO copyEntityToDTO(Order order) {
         OrderDTO dto = new OrderDTO(
                 order.getId(),
@@ -27,7 +31,9 @@ public class OrderDTO {
                 order.getType().getUiValue(),
                 order.getDeadline().getDayOfMonth() + "-" + order.getDeadline().getMonthValue() + "-" + order.getDeadline().getYear(),
                 order.getPrice(),
-                order.getStatus().getUiValue());
+                order.getStatus().getUiValue(),
+                order.getDescription(),
+                order.getExecutorsResponses().size());
         return dto;
     }
 }

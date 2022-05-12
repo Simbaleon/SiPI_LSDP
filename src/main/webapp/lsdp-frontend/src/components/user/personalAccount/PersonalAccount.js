@@ -17,6 +17,7 @@ const style = {
     borderRadius: "6px",
     boxShadow: 24,
     p: 4,
+    textAlign: 'center'
 };
 
 const columns: GridColDef[] = [
@@ -66,7 +67,7 @@ const PersonalAccount = observer(() => {
                         <p><b>Описание:</b> {user.description}</p>
                     </Typography>
                     <CardActions>
-                        <Button color={"inherit"} variant={"outlined"} onClick={handleOpen}>
+                        <Button color={"primary"} variant={"outlined"} onClick={handleOpen}>
                             Редактировать
                         </Button>
                     </CardActions>
@@ -89,8 +90,9 @@ const PersonalAccount = observer(() => {
                         fullWidth={true}
                         rows={16}
                         multiline
+                        style={{marginBottom: "10px"}}
                     />
-                    <Button style={{marginTop: "10px", margin: "auto"}} color={"inherit"} variant={"outlined"}
+                    <Button style={{marginTop: "10px", margin: "auto"}} color={"primary"} variant={"outlined"}
                             onClick={() => {
                                 const newValue = document.getElementById("changeDescriptionTextField").value
                                 userStore.changeUserDescription(userStore.user, newValue)
@@ -107,7 +109,7 @@ const PersonalAccount = observer(() => {
             <div id={"alertAfterCreatingOrder"}/>
 
             <h2>Заказы</h2>
-            <Button color={"inherit"} variant={"outlined"} onClick={() => navigate("/orders/create")}>
+            <Button color={"primary"} variant={"outlined"} onClick={() => navigate("/orders/create")}>
                 Создать новый заказ
             </Button>
             <h3>Мои заказы:</h3>
