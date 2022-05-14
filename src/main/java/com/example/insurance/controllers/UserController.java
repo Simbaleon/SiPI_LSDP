@@ -74,13 +74,13 @@ public class UserController {
     }
 
     /**
-     * Delete user.
+     * Gets user order responses.
      *
-     * @param id the id
+     * @param username the username
+     * @return the user order responses
      */
-    @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable Long id) {
-
+    @GetMapping("/getUserOrderResponses")
+    public ResponseEntity<List<Long>> getUserOrderResponses(@RequestParam String username) {
+        return ResponseEntity.ok(userService.getUserOrderResponses(username));
     }
 }

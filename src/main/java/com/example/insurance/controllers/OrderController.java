@@ -3,6 +3,7 @@ package com.example.insurance.controllers;
 import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
+import com.example.insurance.data.requestdto.RespondToOrderInputDTO;
 import com.example.insurance.data.responsedto.OrderDTO;
 import com.example.insurance.services.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -72,6 +73,19 @@ public class OrderController {
     @GetMapping("/getAllByUsername")
     public ResponseEntity<Map<String, List<OrderDTO>>> getAllOrdersByUsername(@RequestParam String username) {
         return ResponseEntity.ok(orderService.getOrdersByUsername(username));
+    }
+
+    /**
+     * Respond to order response entity.
+     *
+     * @param inputDTO the input dto
+     * @param user     the user
+     * @return the response entity
+     */
+    @PatchMapping("/respondToOrder")
+    public ResponseEntity<Void> respondToOrder(@RequestBody RespondToOrderInputDTO inputDTO, @AuthenticationPrincipal UserEntity user) {
+        orderService.respondToOrder(inputDTO.getId(), user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

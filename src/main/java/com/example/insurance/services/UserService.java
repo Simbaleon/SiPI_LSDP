@@ -1,5 +1,6 @@
 package com.example.insurance.services;
 
+import com.example.insurance.data.entities.Order;
 import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.requestdto.ChangeUserDescriptionInputDTO;
 import com.example.insurance.data.requestdto.UserRegistrationInputDTO;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * The type User service.
@@ -123,5 +125,16 @@ public class UserService {
                 .map(u -> u.setDescription(dto.getDescription()))
                 .map(userRepository::save)
                 .orElseThrow(UserNotFoundException::new);
+    }
+
+    /**
+     * Gets user order responses.
+     *
+     * @param email the email
+     * @return the user order responses
+     */
+    public List<Long> getUserOrderResponses(String email) {
+        UserEntity user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+        return user.getOrderResponses().stream().map(Order::getId).collect(Collectors.toList());
     }
 }

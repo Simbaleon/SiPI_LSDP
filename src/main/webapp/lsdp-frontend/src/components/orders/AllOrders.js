@@ -15,6 +15,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
+import SnackbarConstructor from "../common/snackbarConstructor/SnackbarConstructor";
 
 const style = {
     position: 'absolute',
@@ -30,7 +31,7 @@ const style = {
 };
 
 const AllOrders = observer(() => {
-    const {orderStore} = useContext(Context)
+    const {orderStore, userStore} = useContext(Context)
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0);
     const [totalElements, setTotalElements] = useState(0);
@@ -63,7 +64,7 @@ const AllOrders = observer(() => {
                     <p><b>Категория:</b> {currentOrder.type}</p>
                     <p><b>Срок сдачи:</b> {currentOrder.deadline}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <b>Стоимость:</b> {currentOrder.price}&#x20bd;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <b>Количество откликов:</b> {currentOrder.responsesCount}</p>
+                        <b>Количество откликов:</b> {currentOrder.responsesCount}</p>
                     <TextField
                         id="descriptionTextField"
                         name="description"
@@ -76,9 +77,16 @@ const AllOrders = observer(() => {
                         disabled={true}
                         style={{marginBottom: "10px"}}
                     />
-                    <Button color={"primary"} variant={"outlined"}>
-                        Откликнуться
-                    </Button>
+                    {!userStore.userResponses.includes(currentOrder.id) ?
+                        <Button color={"primary"} variant={"outlined"} onClick={() => {
+                            orderStore.respondToOrder(currentOrder.id)
+                                .then(handleClose())
+                                .catch(SnackbarConstructor("alertRespondContainer", "error", "Не удалось откликнуться на заказ, попробуйте ещё раз"))
+                        }}>
+                            Откликнуться
+                        </Button>
+                        : <b>Вы уже откликнулись на этот заказ</b>
+                    }
                 </Box>
             </Modal>
             {orders.map((order) => (

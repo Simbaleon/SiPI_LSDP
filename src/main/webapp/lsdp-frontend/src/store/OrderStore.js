@@ -33,4 +33,10 @@ export default class OrderStore {
             .then(r => Promise.resolve(r))
             .catch(() => Promise.reject())
     }
+
+    respondToOrder(id) {
+        return OrderService.respondToOrder(id)
+            .then(r => Promise.resolve(r))
+            .catch(() => Promise.reject())
+    }
 }

@@ -47,6 +47,7 @@ const PersonalAccount = observer(() => {
             userStore.getUserInfo(userStore.user).then(r => {
                 setUser(r.data)
             })
+        userStore.getUserOrderResponses().then()
         }, []
     )
 

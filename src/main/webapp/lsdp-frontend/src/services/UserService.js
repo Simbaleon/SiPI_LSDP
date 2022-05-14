@@ -10,4 +10,8 @@ export default class UserService {
         return $api.patch("/clients/changeUserDescription", {username, description})
     }
 
+    static getUserOrderResponses(email) {
+        return $api.get("/clients/getUserOrderResponses", {params: {username: email}})
+    }
+
 }

@@ -17,4 +17,8 @@ export default class OrderService {
     static getAllOrdersByUserId(email) {
         return $api.get("/orders/getAllByUsername", {params: {username: email}})
     }
+
+    static respondToOrder(id) {
+        return $api.patch("/orders/respondToOrder", {id})
+    }
 }

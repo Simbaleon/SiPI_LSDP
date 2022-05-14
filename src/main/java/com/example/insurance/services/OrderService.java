@@ -7,8 +7,10 @@ import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.repositories.OrderRepository;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import com.example.insurance.data.responsedto.OrderDTO;
+import com.example.insurance.exceptions.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -73,5 +75,17 @@ public class OrderService {
         orderMap.put("executor", executorOrdersList);
         orderMap.put("author", authorOrderList);
         return orderMap;
+    }
+
+    /**
+     * Respond to order.
+     *
+     * @param id   the id
+     * @param user the user
+     */
+    public void respondToOrder(Long id, UserEntity user) {
+        Order order = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
+        order.getExecutorsResponses().add(user);
+        orderRepository.save(order);
     }
 }

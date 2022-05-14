@@ -1,4 +1,3 @@
-import {Alert, Snackbar} from "@mui/material";
 import {createRoot} from "react-dom/client";
 import SnackbarComponent from "./SnackbarComponent";
 

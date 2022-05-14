@@ -9,9 +9,14 @@ export default class UserStore {
     user = ""
     userRole = []
     isAuth = false
+    userResponses = []
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    setUserResponses(responses) {
+        this.userResponses = responses
     }
 
     setUser(user) {
@@ -76,6 +81,16 @@ export default class UserStore {
     changeUserDescription(username, description) {
         return UserService.changeUserDescription(username, description)
             .then(r => Promise.resolve(r))
+            .catch(() => Promise.reject())
+    }
+
+    getUserOrderResponses() {
+        return UserService.getUserOrderResponses(this.user)
+            .then(r => {
+                this.setUserResponses(r.data)
+                console.log(this.userResponses)
+                return Promise.resolve(r)
+            })
             .catch(() => Promise.reject())
     }
 
