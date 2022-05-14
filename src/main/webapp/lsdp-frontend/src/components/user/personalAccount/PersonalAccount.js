@@ -107,6 +107,7 @@ const PersonalAccount = observer(() => {
             </Modal>
 
             <div id={"alertAfterCreatingOrder"}/>
+            <div id={"alertSuccessAfterLogin"}/>
 
             <h2>Заказы</h2>
             <Button color={"primary"} variant={"outlined"} onClick={() => navigate("/orders/create")}>

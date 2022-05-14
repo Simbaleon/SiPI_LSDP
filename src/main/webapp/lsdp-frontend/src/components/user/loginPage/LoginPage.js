@@ -29,10 +29,10 @@ const LoginPage = observer(() => {
         onSubmit: (values => {
             userStore?.login(values.email, values.password)
                 .then(() => {
-                    SnackbarConstructor("alertAfterLogin", "success", "Успешная авторизация")
                     navigate("/personalAccount")
+                    SnackbarConstructor("alertSuccessAfterLogin", "success", "Успешная авторизация")
                 }).catch(() => {
-                SnackbarConstructor("alertAfterLogin", "error", "Неправильный адрес эл.почты или пароль")
+                SnackbarConstructor("alertErrorAfterLogin", "error", "Неправильный адрес эл.почты или пароль")
             })
 
         })
@@ -48,7 +48,7 @@ const LoginPage = observer(() => {
                 justifyContent={"center"}
                 style={{minHeight: '50vh'}}
             >
-                <div id={"alertAfterLogin"} />
+                <div id={"alertErrorAfterLogin"} />
                 <Grid item xs={12} sm={6} md={3}>
                     <TextField
                         error={formik.errors.email != null}
