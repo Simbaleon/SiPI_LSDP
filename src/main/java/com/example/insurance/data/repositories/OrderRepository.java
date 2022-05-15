@@ -35,20 +35,18 @@ public interface OrderRepository extends PagingAndSortingRepository<Order, Long>
     /**
      * Find all by author user id and status is not list.
      *
-     * @param email       the email
-     * @param orderStatus the order status
+     * @param email the email
      * @return the list
      */
-    List<Order> findAllByAuthorUserEmailAndStatusIsNot(@NonNull String email, @NonNull OrderStatus orderStatus);
+    List<Order> findAllByAuthorUserEmail(@NonNull String email);
 
     /**
      * Find all by executor user id and status is not list.
      *
-     * @param email       the email
-     * @param orderStatus the order status
+     * @param email the email
      * @return the list
      */
-    List<Order> findAllByExecutorUserEmailAndStatusIsNot(@NonNull String email, @NonNull OrderStatus orderStatus);
+    List<Order> findAllByExecutorUserEmail(@NonNull String email);
 
     /**
      * Find all by status list.

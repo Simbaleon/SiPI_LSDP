@@ -88,4 +88,27 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Delete order response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
+    @DeleteMapping("/deleteOrder")
+    public ResponseEntity<Void> deleteOrder(@RequestParam Long id) {
+        orderService.deleteOrder(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Gets order by id.
+     *
+     * @param id the id
+     * @return the order by id
+     */
+    @GetMapping("/getOrderById")
+    public ResponseEntity<OrderDTO> getOrderById(@RequestParam Long id) {
+        return ResponseEntity.ok(orderService.getOrderById(id));
+    }
+
 }

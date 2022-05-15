@@ -21,4 +21,12 @@ export default class OrderService {
     static respondToOrder(id) {
         return $api.patch("/orders/respondToOrder", {id})
     }
+
+    static deleteOrder(orderId) {
+        return $api.delete("/orders/deleteOrder", {params: {id: orderId}})
+    }
+
+    static getOrderById(orderId) {
+        return $api.get("/orders/getOrderById", {params: {id: orderId}})
+    }
 }

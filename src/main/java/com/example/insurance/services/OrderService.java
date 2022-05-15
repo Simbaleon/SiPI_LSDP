@@ -68,10 +68,12 @@ public class OrderService {
      */
     public Map<String, List<OrderDTO>> getOrdersByUsername(String email) {
         Map<String, List<OrderDTO>> orderMap = new HashMap<>();
-        List<OrderDTO> executorOrdersList = orderRepository.findAllByExecutorUserEmailAndStatusIsNot(email, OrderStatus.COMPLETED)
-                .stream().map(OrderDTO::copyEntityToDTO).collect(Collectors.toList());
-        List<OrderDTO> authorOrderList = orderRepository.findAllByAuthorUserEmailAndStatusIsNot(email, OrderStatus.COMPLETED)
-                        .stream().map(OrderDTO::copyEntityToDTO).collect(Collectors.toList());
+        List<OrderDTO> executorOrdersList = orderRepository.findAllByExecutorUserEmail(email).stream()
+                .filter(o -> !(o.getStatus().equals(OrderStatus.COMPLETED) || o.getStatus().equals(OrderStatus.DELETED)))
+                .map(OrderDTO::copyEntityToDTO).collect(Collectors.toList());
+        List<OrderDTO> authorOrderList = orderRepository.findAllByAuthorUserEmail(email).stream()
+                .filter(o -> !(o.getStatus().equals(OrderStatus.COMPLETED) || o.getStatus().equals(OrderStatus.DELETED)))
+                .map(OrderDTO::copyEntityToDTO).collect(Collectors.toList());
         orderMap.put("executor", executorOrdersList);
         orderMap.put("author", authorOrderList);
         return orderMap;
@@ -87,5 +89,25 @@ public class OrderService {
         Order order = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
         order.getExecutorsResponses().add(user);
         orderRepository.save(order);
+    }
+
+    /**
+     * Delete order.
+     *
+     * @param id the id
+     */
+    public void  deleteOrder(Long id) {
+        orderRepository.findById(id).map(order -> order.setStatus(OrderStatus.DELETED))
+                .map(orderRepository::save).orElseThrow(OrderNotFoundException::new);
+    }
+
+    /**
+     * Gets order by id.
+     *
+     * @param id the id
+     * @return the order by id
+     */
+    public OrderDTO getOrderById(Long id) {
+        return orderRepository.findById(id).map(OrderDTO::copyEntityToDTO).orElseThrow(OrderNotFoundException::new);
     }
 }

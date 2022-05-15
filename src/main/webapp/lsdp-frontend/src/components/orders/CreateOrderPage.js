@@ -72,18 +72,7 @@ const CreateOrderPage = observer(() => {
                     type={"text"}
                     value={formik.values.subject}
                     onChange={formik.handleChange}
-                />
-            </Grid>
-            <Grid item xs={5}>
-                <TextField
-                    id="description"
-                    name="description"
-                    error={formik.errors.description != null}
-                    helperText={formik.errors.description}
-                    label="Описание"
-                    type={"text"}
-                    value={formik.values.description}
-                    onChange={formik.handleChange}
+                    style={{marginTop: "20px"}}
                 />
             </Grid>
             <Grid item xs={5}>
@@ -123,6 +112,21 @@ const CreateOrderPage = observer(() => {
                     label="Стоимость работы"
                     type={"number"}
                     value={formik.values.price}
+                    onChange={formik.handleChange}
+                />
+            </Grid>
+            <Grid item xs={5}>
+                <TextField
+                    id="description"
+                    name="description"
+                    error={formik.errors.description != null}
+                    helperText={formik.errors.description}
+                    label="Описание"
+                    type={"text"}
+                    style={{width: 1000}}
+                    rows={16}
+                    multiline
+                    value={formik.values.description}
                     onChange={formik.handleChange}
                 />
             </Grid>

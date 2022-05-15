@@ -9,7 +9,8 @@ public enum OrderStatus {
 
     WAITING_FOR_RESPONSES("В ожидании откликов"),
     IN_PROGRESS("В процессе"),
-    COMPLETED("Выполнен");
+    COMPLETED("Выполнен"),
+    DELETED("Удалён");
 
     private String uiValue;
 

@@ -7,18 +7,15 @@ import {observer} from "mobx-react-lite";
 
 const useStyles = makeStyles(() => ({
     header: {
-        backgroundColor: "#1c1427",
         paddingRight: "79px",
         paddingLeft: "118px",
     },
     logo: {
-        fontFamily: "Suez One, serif",
         fontWeight: 600,
         color: "white",
         textAlign: "left",
     },
     menuButton: {
-        fontFamily: "Open Sans, sans-serif",
         fontWeight: 700,
         size: "18px",
         marginLeft: "38px",
