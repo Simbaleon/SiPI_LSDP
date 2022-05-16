@@ -7,13 +7,16 @@ import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.repositories.OrderRepository;
 import com.example.insurance.data.requestdto.AssignUserToOrderInputDTO;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
+import com.example.insurance.data.requestdto.ChangeOrderStatusInputDTO;
 import com.example.insurance.data.responsedto.OrderDTO;
 import com.example.insurance.data.responsedto.UserDTO;
 import com.example.insurance.exceptions.OrderNotFoundException;
+import com.example.insurance.exceptions.OrderStatusNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -131,6 +134,17 @@ public class OrderService {
         UserEntity user = userService.getUserById(inputDTO.getUserId());
         Order order = orderRepository.findById(inputDTO.getOrderId()).orElseThrow(OrderNotFoundException::new);
         order.setExecutorUser(user).setStatus(OrderStatus.IN_PROGRESS);
+        orderRepository.save(order);
+    }
+
+    /**
+     * Mark order as ready to check.
+     *
+     * @param inputDTO the input dto
+     */
+    public void changeOrderStatus(ChangeOrderStatusInputDTO inputDTO) {
+        Order order = orderRepository.findById(inputDTO.getOrderId()).orElseThrow(OrderNotFoundException::new);
+        order.setStatus(inputDTO.getStatus());
         orderRepository.save(order);
     }
 }

@@ -45,6 +45,7 @@ const PersonalAccount = observer(() => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [render, setRender] = useState(false)
 
     useEffect(() => {
             orderStore.getAllOrdersByUsername(userStore.user)
@@ -56,10 +57,33 @@ const PersonalAccount = observer(() => {
                 setUser(r.data)
             })
             userStore.getUserOrderResponses().then()
-        }, []
+        }, [render]
     )
 
-    const columns: GridColDef[] = [
+    const executorColumns: GridColDef[] = [
+        {
+            field: 'markAsReadyToCheck', headerName: "", width: 180, renderCell: params => {
+                return (
+                    <Button color={"primary"} variant={"outlined"} onClick={() => {
+                        orderStore.currentOrderId = params.row.id
+                        orderStore.changeOrderStatus(orderStore.currentOrderId, "READY_TO_CHECK").then(() => {
+                            setRender(!render)
+                        })
+                    }}>
+                        Готов к проверке
+                    </Button>
+                )
+            }
+        },
+        {field: 'id', headerName: 'id', type: "number", width: 100},
+        {field: 'subject', headerName: 'Тема', width: 360},
+        {field: 'type', headerName: 'Тип заказа', width: 230},
+        {field: 'status', headerName: 'Статус заказа', width: 230},
+        {field: 'deadline', headerName: 'Срок сдачи', width: 140, type: "date"},
+        {field: 'price', headerName: 'Стоимость', type: 'number', width: 140}
+    ]
+
+    const authorColumns: GridColDef[] = [
         // {
         //     field: 'actiona', headerName: 'Действия', align: "center", width: 80, renderCell: (params) => {
         //
@@ -109,7 +133,6 @@ const PersonalAccount = observer(() => {
         // },
         {
             field: 'management', headerName: "", width: 130, renderCell: params => {
-                console.log(params.row.id)
                 return (
                     <Button color={"primary"} variant={"outlined"} onClick={() => {
                         orderStore.currentOrderId = params.row.id
@@ -207,7 +230,7 @@ const PersonalAccount = observer(() => {
                     <div style={{height: '424px', width: '100%'}}>
                         <DataGrid
                             rows={authorRows}
-                            columns={columns}
+                            columns={authorColumns}
                             pageSize={5}
                             rowsPerPageOptions={[5]}
                             components={{
@@ -223,7 +246,7 @@ const PersonalAccount = observer(() => {
                     <div style={{height: '424px', width: '100%'}}>
                         <DataGrid
                             rows={executorRows}
-                            columns={columns}
+                            columns={executorColumns}
                             pageSize={5}
                             rowsPerPageOptions={[5]}
                             components={{

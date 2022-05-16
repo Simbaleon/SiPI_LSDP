@@ -12,8 +12,14 @@ export default class OrderStore {
 
     currentManagedOrder = {}
 
+    currentManagedOrderExecutor = {}
+
     setCurrentManagedOrder(order) {
         this.currentManagedOrder = order
+    }
+
+    setCurrentManagedOrderExecutor(executor) {
+        this.currentManagedOrderExecutor = executor
     }
 
     createOrder(subject, description, orderType, deadline, price) {
@@ -56,11 +62,11 @@ export default class OrderStore {
     deleteOrder(id) {
         return OrderService.deleteOrder(id)
             .then(r => {
-                SnackbarConstructor("alertAfterDeletingOrder", "success", "Заказ успешно удалён")
+                // SnackbarConstructor("alertAfterDeletingOrder", "success", "Заказ успешно удалён")
                 return Promise.resolve(r)
             })
             .catch(() => {
-                SnackbarConstructor("alertAfterDeletingOrder", "error", "При удалении заказа что-то пошло не так, попробуйте ещё раз")
+                // SnackbarConstructor("alertAfterDeletingOrder", "error", "При удалении заказа что-то пошло не так, попробуйте ещё раз")
                 return Promise.reject()
             })
     }
@@ -69,6 +75,8 @@ export default class OrderStore {
         return OrderService.getOrderById(id)
             .then(r => {
                 this.setCurrentManagedOrder(r.data)
+                this.setCurrentManagedOrderExecutor(r.data.executor)
+                console.log(this.currentManagedOrder)
                 return Promise.resolve(r)
             })
             .catch(() => Promise.reject())
@@ -82,6 +90,12 @@ export default class OrderStore {
 
     assignUserToOrder(orderId, userId) {
         return OrderService.assignUserToOrder(orderId, userId)
+            .then(r => Promise.resolve(r))
+            .catch(() => Promise.reject())
+    }
+
+    changeOrderStatus(orderId, status) {
+        return OrderService.changeOrderStatus(orderId, status)
             .then(r => Promise.resolve(r))
             .catch(() => Promise.reject())
     }

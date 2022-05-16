@@ -37,4 +37,8 @@ export default class OrderService {
     static assignUserToOrder(orderId, userId) {
         return $api.patch("/orders/assignUserToOrder", {orderId, userId})
     }
+
+    static changeOrderStatus(orderId, status) {
+        return $api.patch("/orders/changeOrderStatus", {orderId, status})
+    }
 }

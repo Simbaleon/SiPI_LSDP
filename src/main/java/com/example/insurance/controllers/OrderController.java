@@ -3,6 +3,7 @@ package com.example.insurance.controllers;
 import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.requestdto.AssignUserToOrderInputDTO;
+import com.example.insurance.data.requestdto.ChangeOrderStatusInputDTO;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import com.example.insurance.data.requestdto.RespondToOrderInputDTO;
 import com.example.insurance.data.responsedto.OrderDTO;
@@ -133,6 +134,18 @@ public class OrderController {
     @PatchMapping("/assignUserToOrder")
     public ResponseEntity<Void> assignUserToOrder(@RequestBody AssignUserToOrderInputDTO inputDTO) {
         orderService.assignUserToOrder(inputDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Change order status response entity.
+     *
+     * @param inputDTO the input dto
+     * @return the response entity
+     */
+    @PatchMapping("/changeOrderStatus")
+    public ResponseEntity<Void> changeOrderStatus(@RequestBody ChangeOrderStatusInputDTO inputDTO) {
+        orderService.changeOrderStatus(inputDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
