@@ -44,8 +44,6 @@ const RegistrationPage = observer(() => {
             fullName: yup.string()
                 .required("Это поле обязательно"),
             telephoneNumber: yup.string().required("Это поле обязательно"),
-            role: yup.string()
-                .required("Это поле обязательно") //оно итак всегда будет заполнено))))
         }),
         onSubmit: (values => {
             userStore?.registration(values.fullName, values.email, values.telephoneNumber, values.password)
