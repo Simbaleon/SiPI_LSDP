@@ -31,8 +31,7 @@ const RegistrationPage = observer(() => {
             fullName: "",
             email: "",
             telephoneNumber: "",
-            password: "",
-            role: "USER"
+            password: ""
         },
         validateOnChange: true,
         validationSchema: yup.object({
@@ -49,7 +48,7 @@ const RegistrationPage = observer(() => {
                 .required("Это поле обязательно") //оно итак всегда будет заполнено))))
         }),
         onSubmit: (values => {
-            userStore?.registration(values.fullName, values.email, values.telephoneNumber, values.password, values.role)
+            userStore?.registration(values.fullName, values.email, values.telephoneNumber, values.password)
                 .then(() => {
                     SnackbarConstructor("alertAfterRegistration", "success", "Успешная регистрация")
                     navigate("/signin")
@@ -120,12 +119,6 @@ const RegistrationPage = observer(() => {
                     value={formik.values.password}
                     onChange={formik.handleChange}
                 />
-            </Grid>
-            <Grid item xs={5}>
-                <select name={"role"} value={formik.values.role} onChange={formik.handleChange}>
-                    <option value={'USER'}>Пользователь</option>
-                    <option value={'ADMIN'}>Администратор</option>
-                </select>
             </Grid>
             <Grid item xs={12}>
                 <Button

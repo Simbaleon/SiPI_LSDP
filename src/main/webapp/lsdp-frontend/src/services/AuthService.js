@@ -6,8 +6,8 @@ export default class AuthService {
         return $api.post("/login", {email, password})
     }
 
-    static registration(fullName, email, telephoneNumber, password, role) {
-        return $api.post("/clients/registration", {fullName, email, telephoneNumber, password, role})
+    static registration(fullName, email, telephoneNumber, password) {
+        return $api.post("/clients/registration", {fullName, email, telephoneNumber, password})
     }
 
 }

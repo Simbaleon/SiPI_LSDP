@@ -55,8 +55,8 @@ export default class UserStore {
             })
     }
 
-    registration(fullName, email, telephoneNumber, password, role) {
-        return AuthService.registration(fullName, email, telephoneNumber, password, role)
+    registration(fullName, email, telephoneNumber, password) {
+        return AuthService.registration(fullName, email, telephoneNumber, password)
             .then(response => {
                 return Promise.resolve(response)
             })

@@ -1,6 +1,7 @@
 package com.example.insurance.services;
 
 import com.example.insurance.data.entities.Order;
+import com.example.insurance.data.entities.Role;
 import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.requestdto.ChangeUserDescriptionInputDTO;
 import com.example.insurance.data.requestdto.UserRegistrationInputDTO;
@@ -55,7 +56,7 @@ public class UserService {
                     .setFullName(userRegistrationInputDTO.getFullName())
                     .setTelephoneNumber(userRegistrationInputDTO.getTelephoneNumber())
                     .setPassword(bCryptPasswordEncoder.encode(userRegistrationInputDTO.getPassword()))
-                    .setRoles(Collections.singleton(userRegistrationInputDTO.getRole()));
+                    .setRoles(Collections.singleton(Role.USER));
             userRepository.save(user);
         } else {
             throw new UnsupportedOperationException();

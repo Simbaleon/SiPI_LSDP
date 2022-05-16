@@ -18,6 +18,4 @@ public class UserRegistrationInputDTO {
 
     private String password;
 
-    private Role role;
-
 }
