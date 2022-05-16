@@ -2,9 +2,11 @@ package com.example.insurance.controllers;
 
 import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.enumerations.OrderType;
+import com.example.insurance.data.requestdto.AssignUserToOrderInputDTO;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import com.example.insurance.data.requestdto.RespondToOrderInputDTO;
 import com.example.insurance.data.responsedto.OrderDTO;
+import com.example.insurance.data.responsedto.UserDTO;
 import com.example.insurance.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -109,6 +111,29 @@ public class OrderController {
     @GetMapping("/getOrderById")
     public ResponseEntity<OrderDTO> getOrderById(@RequestParam Long id) {
         return ResponseEntity.ok(orderService.getOrderById(id));
+    }
+
+    /**
+     * Gets all responses for order.
+     *
+     * @param id the id
+     * @return the all responses for order
+     */
+    @GetMapping("/getAllResponsesForOrder")
+    public ResponseEntity<List<UserDTO>> getAllResponsesForOrder(@RequestParam Long id) {
+        return ResponseEntity.ok(orderService.getAllResponsesForOrder(id));
+    }
+
+    /**
+     * Assign user to order response entity.
+     *
+     * @param inputDTO the input dto
+     * @return the response entity
+     */
+    @PatchMapping("/assignUserToOrder")
+    public ResponseEntity<Void> assignUserToOrder(@RequestBody AssignUserToOrderInputDTO inputDTO) {
+        orderService.assignUserToOrder(inputDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

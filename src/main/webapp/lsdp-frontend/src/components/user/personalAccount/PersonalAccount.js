@@ -120,6 +120,7 @@ const PersonalAccount = observer(() => {
                 )
             }
         },
+        {field: 'id', headerName: 'id', type: "number", width: 100},
         {field: 'subject', headerName: 'Тема', width: 360},
         {field: 'type', headerName: 'Тип заказа', width: 230},
         {field: 'status', headerName: 'Статус заказа', width: 230},
@@ -140,9 +141,19 @@ const PersonalAccount = observer(() => {
                     <Typography>
                         <p><b>Номер телефона:</b> {user.telephoneNumber}</p>
                     </Typography>
-                    <Typography>
-                        <p><b>Описание:</b> {user.description}</p>
-                    </Typography>
+                    <TextField
+                        id="description"
+                        name="description"
+                        label="Описание"
+                        type={"text"}
+                        value={user.description}
+                        disabled
+                        fullWidth={true}
+                        rows={16}
+                        multiline
+                        InputLabelProps={{ shrink: true }}
+                        style={{marginBottom: "10px"}}
+                    />
                     <CardActions>
                         <Button color={"primary"} variant={"outlined"} onClick={handleOpen}>
                             Редактировать
@@ -193,12 +204,12 @@ const PersonalAccount = observer(() => {
             </Button>
             <h3>Мои заказы:</h3>
             {(authorRows.length !== 0 ?
-                    <div style={{height: '45.2%', width: '100%'}}>
+                    <div style={{height: '424px', width: '100%'}}>
                         <DataGrid
                             rows={authorRows}
                             columns={columns}
-                            pageSize={4}
-                            rowsPerPageOptions={[4]}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
                             components={{
                                 Toolbar: GridToolbar,
                             }}
@@ -209,12 +220,12 @@ const PersonalAccount = observer(() => {
             )}
             <h3>Работаю над:</h3>
             {(executorRows.length !== 0 ?
-                    <div style={{height: '45.2%', width: '100%'}}>
+                    <div style={{height: '424px', width: '100%'}}>
                         <DataGrid
                             rows={executorRows}
                             columns={columns}
-                            pageSize={4}
-                            rowsPerPageOptions={[4]}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
                             components={{
                                 Toolbar: GridToolbar,
                             }}

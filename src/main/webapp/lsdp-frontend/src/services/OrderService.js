@@ -29,4 +29,12 @@ export default class OrderService {
     static getOrderById(orderId) {
         return $api.get("/orders/getOrderById", {params: {id: orderId}})
     }
+
+    static getAllResponsesForOrder(orderId) {
+        return $api.get("/orders/getAllResponsesForOrder", {params: {id: orderId}})
+    }
+
+    static assignUserToOrder(orderId, userId) {
+        return $api.patch("/orders/assignUserToOrder", {orderId, userId})
+    }
 }

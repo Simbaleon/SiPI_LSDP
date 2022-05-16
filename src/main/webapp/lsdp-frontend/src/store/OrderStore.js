@@ -10,6 +10,12 @@ export default class OrderStore {
 
     currentOrderId = 0
 
+    currentManagedOrder = {}
+
+    setCurrentManagedOrder(order) {
+        this.currentManagedOrder = order
+    }
+
     createOrder(subject, description, orderType, deadline, price) {
         return OrderService.createOrder(subject, description, orderType, deadline, price)
             .then((response) => {
@@ -61,6 +67,21 @@ export default class OrderStore {
 
     getOrderById(id) {
         return OrderService.getOrderById(id)
+            .then(r => {
+                this.setCurrentManagedOrder(r.data)
+                return Promise.resolve(r)
+            })
+            .catch(() => Promise.reject())
+    }
+
+    getAllResponsesForOrder(id) {
+        return OrderService.getAllResponsesForOrder(id)
+            .then(r => Promise.resolve(r))
+            .catch(() => Promise.reject())
+    }
+
+    assignUserToOrder(orderId, userId) {
+        return OrderService.assignUserToOrder(orderId, userId)
             .then(r => Promise.resolve(r))
             .catch(() => Promise.reject())
     }

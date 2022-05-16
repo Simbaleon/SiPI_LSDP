@@ -22,6 +22,8 @@ public class OrderDTO {
 
     private String description;
 
+    public UserDTO executor;
+
     private int responsesCount;
 
     static public OrderDTO copyEntityToDTO(Order order) {
@@ -33,6 +35,7 @@ public class OrderDTO {
                 order.getPrice(),
                 order.getStatus().getUiValue(),
                 order.getDescription(),
+                UserDTO.copyEntityToDTO(order.getExecutorUser()),
                 order.getExecutorsResponses().size());
         return dto;
     }

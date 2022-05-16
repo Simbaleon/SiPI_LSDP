@@ -14,6 +14,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserDTO {
 
+    private Long id;
+
     private String fullName;
 
     private String email;
@@ -25,7 +27,10 @@ public class UserDTO {
     private Set<Role> roles;
 
     public static UserDTO copyEntityToDTO(UserEntity entity) {
+        if (entity == null)
+            return null;
         UserDTO dto = new UserDTO(
+                entity.getId(),
                 entity.getFullName(),
                 entity.getEmail(),
                 entity.getTelephoneNumber(),

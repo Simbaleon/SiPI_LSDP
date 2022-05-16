@@ -5,7 +5,7 @@ import PersonalAccount from "../../user/personalAccount/PersonalAccount";
 import LoginPage from "../../user/loginPage/LoginPage";
 import RegistrationPage from "../../user/registrationPage/RegistrationPage";
 import CreateOrderPage from "../../orders/CreateOrderPage";
-import OrderManagementPage from "../../user/personalAccount/OrderManagementPage";
+import OrderManagementPage from "../../orders/OrderManagementPage";
 
 function Content() {
     return (

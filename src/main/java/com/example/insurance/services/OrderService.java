@@ -5,20 +5,20 @@ import com.example.insurance.data.entities.UserEntity;
 import com.example.insurance.data.enumerations.OrderStatus;
 import com.example.insurance.data.enumerations.OrderType;
 import com.example.insurance.data.repositories.OrderRepository;
+import com.example.insurance.data.requestdto.AssignUserToOrderInputDTO;
 import com.example.insurance.data.requestdto.CreateOrderInputDTO;
 import com.example.insurance.data.responsedto.OrderDTO;
+import com.example.insurance.data.responsedto.UserDTO;
 import com.example.insurance.exceptions.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -109,5 +109,28 @@ public class OrderService {
      */
     public OrderDTO getOrderById(Long id) {
         return orderRepository.findById(id).map(OrderDTO::copyEntityToDTO).orElseThrow(OrderNotFoundException::new);
+    }
+
+    /**
+     * Gets all responses for order.
+     *
+     * @param id the id
+     * @return the all responses for order
+     */
+    public List<UserDTO> getAllResponsesForOrder(Long id) {
+        Set<UserEntity> orderResponses = orderRepository.findById(id).map(Order::getExecutorsResponses).orElseThrow(OrderNotFoundException::new);
+        return orderResponses.stream().map(UserDTO::copyEntityToDTO).collect(Collectors.toList());
+    }
+
+    /**
+     * Assign user to order.
+     *
+     * @param inputDTO the input dto
+     */
+    public void assignUserToOrder(AssignUserToOrderInputDTO inputDTO) {
+        UserEntity user = userService.getUserById(inputDTO.getUserId());
+        Order order = orderRepository.findById(inputDTO.getOrderId()).orElseThrow(OrderNotFoundException::new);
+        order.setExecutorUser(user).setStatus(OrderStatus.IN_PROGRESS);
+        orderRepository.save(order);
     }
 }

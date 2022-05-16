@@ -137,4 +137,14 @@ public class UserService {
         UserEntity user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
         return user.getOrderResponses().stream().map(Order::getId).collect(Collectors.toList());
     }
+
+    /**
+     * Gets user by id.
+     *
+     * @param id the id
+     * @return the user by id
+     */
+    public UserEntity getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
 }
