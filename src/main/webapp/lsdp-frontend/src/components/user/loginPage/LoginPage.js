@@ -29,7 +29,12 @@ const LoginPage = observer(() => {
         onSubmit: (values => {
             userStore?.login(values.email, values.password)
                 .then(() => {
-                    navigate("/personalAccount")
+                    if (userStore.isUser()) {
+                        navigate("/personalAccount")
+                    }
+                    if (userStore.isAdmin()) {
+                        navigate("/adminPage")
+                    }
                     SnackbarConstructor("alertSuccessAfterLogin", "success", "Успешная авторизация")
                 }).catch(() => {
                 SnackbarConstructor("alertErrorAfterLogin", "error", "Неправильный адрес эл.почты или пароль")

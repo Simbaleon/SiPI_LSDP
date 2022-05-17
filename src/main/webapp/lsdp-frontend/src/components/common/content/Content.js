@@ -7,6 +7,7 @@ import RegistrationPage from "../../user/registrationPage/RegistrationPage";
 import CreateOrderPage from "../../orders/CreateOrderPage";
 import OrderManagementPage from "../../orders/OrderManagementPage";
 import HomePage from "./HomePage";
+import AdminPage from "../../user/personalAccount/AdminPage";
 
 function Content() {
     return (
@@ -16,6 +17,7 @@ function Content() {
                 <Route path="/signin" element={<LoginPage/>}/>
                 <Route path="/orders" element={<AllOrders/>}/>
                 <Route path="/personalAccount" element={<PersonalAccount/>}/>
+                <Route path="/adminPage" element={<AdminPage/>}/>
                 <Route path="/signUp" element={<RegistrationPage/>}/>
                 <Route path="/orders/create" element={<CreateOrderPage/>}/>
                 <Route path="/orders/manageOrder" element={<OrderManagementPage/>}/>
